@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand -->
+    <color name="teal_primary">#1D9E75</color>
+    <color name="teal_dark">#0F6E56</color>
+    <color name="teal_light">#E1F5EE</color>
+    <color name="purple_primary">#534AB7</color>
+    <color name="purple_dark">#3C3489</color>
+    <color name="purple_light">#EEEDFE</color>
+    <color name="coral_primary">#D85A30</color>
+    <color name="coral_light">#FAECE7</color>
+    <color name="amber_primary">#BA7517</color>
+
+    <!-- Neutral -->
+    <color name="gray_dark">#2C2C2A</color>
+    <color name="gray_mid">#888780</color>
+    <color name="gray_light">#F1EFE8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- System -->
+    <color name="colorPrimary">#1D9E75</color>
+    <color name="colorPrimaryDark">#0F6E56</color>
+    <color name="colorAccent">#534AB7</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorBackground">#F8F8F6</color>
+    <color name="colorOnBackground">#2C2C2A</color>
+
+    <!-- Dark theme -->
+    <color name="colorPrimaryDarkTheme">#5DCAA5</color>
+    <color name="colorSurfaceDark">#1E1E1C</color>
+    <color name="colorBackgroundDark">#121210</color>
+    <color name="colorOnBackgroundDark">#E8E6E0</color>
+</resources>
