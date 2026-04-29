@@ -3,215 +3,138 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="?android:attr/colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
-        <!-- Header -->
+        <!-- Header gradient -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="12dp"
-            android:paddingBottom="20dp">
+            android:background="@drawable/bg_header_gradient"
+            android:padding="24dp"
+            android:paddingTop="48dp"
+            android:paddingBottom="32dp">
 
             <TextView
                 android:id="@+id/tvGreeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hey Warrior!"
+                android:text="Hey, Warrior! 💪"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:textColor="@color/gray_dark" />
+                android:textColor="@color/white"
+                android:layout_marginBottom="4dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ready to build that body?"
+                android:text="Ready to crush it today?"
                 android:textSize="14sp"
-                android:textColor="@color/gray_mid"
-                android:layout_marginTop="2dp" />
+                android:textColor="#CDFFFFFF"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Stats row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_card"
+                    android:padding="14dp"
+                    android:layout_marginEnd="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="🔥 Streak" android:textSize="11sp" android:textColor="#CDFFFFFF" />
+                    <TextView android:id="@+id/tvStreak" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="0 days"
+                        android:textSize="16sp" android:textStyle="bold" android:textColor="@color/white"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_card"
+                    android:padding="14dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="⚡ This week" android:textSize="11sp" android:textColor="#CDFFFFFF" />
+                    <TextView android:id="@+id/tvCalories" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="0 kcal"
+                        android:textSize="16sp" android:textStyle="bold" android:textColor="@color/white"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_card"
+                    android:padding="14dp"
+                    android:layout_marginStart="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="💎 Total" android:textSize="11sp" android:textColor="#CDFFFFFF" />
+                    <TextView android:id="@+id/tvTotalWorkouts" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="0"
+                        android:textSize="16sp" android:textStyle="bold" android:textColor="@color/white"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- Stats row -->
+        <!-- Content -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                style="@style/FitHer.Card">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Streak"
-                        android:textSize="12sp"
-                        android:textColor="@color/gray_mid" />
-                    <TextView
-                        android:id="@+id/tvStreak"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 day streak"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/teal_primary"
-                        android:layout_marginTop="4dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/FitHer.Card">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="This Week"
-                        android:textSize="12sp"
-                        android:textColor="@color/gray_mid" />
-                    <TextView
-                        android:id="@+id/tvCaloriesWeek"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 kcal"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/purple_primary"
-                        android:layout_marginTop="4dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-        <!-- Today's Workout Card -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TODAY"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.12"
-            android:textColor="@color/gray_mid"
-            android:layout_marginBottom="10dp" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            style="@style/FitHer.Card">
-
+            <!-- Suggested workouts -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="6dp">
-
-                    <TextView
-                        android:id="@+id/tvTodayLabel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Monday"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/gray_dark" />
-
-                    <TextView
-                        android:id="@+id/chipFocusType"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="GLUTE"
-                        android:textColor="@color/white"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:background="@drawable/bg_pill" />
-                </LinearLayout>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
 
                 <TextView
-                    android:id="@+id/tvTodayFocus"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Glute Activation &amp; Strength"
-                    android:textSize="14sp"
-                    android:textColor="@color/gray_mid"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:id="@+id/tvTodayMeta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="22 min · ~132 kcal"
-                    android:textSize="13sp"
-                    android:textColor="@color/teal_primary"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_weight="1"
+                    android:text="SUGGESTED FOR YOU"
+                    style="@style/FitHer.SectionTitle" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnStartWorkout"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:text="Start Today's Workout"
-                    style="@style/FitHer.Button.Primary" />
+                    android:id="@+id/btnSeeAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="See all"
+                    style="@style/FitHer.Button.Text"
+                    android:textSize="13sp" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        <!-- Progressive Overload Tip -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            style="@style/FitHer.Card">
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSuggestedPlans"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="This Week's Focus"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/teal_dark"
-                    android:layout_marginBottom="6dp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Form and activation. Feel the squeeze at the top of every glute exercise. Bands not required yet."
-                    android:textSize="13sp"
-                    android:textColor="@color/gray_mid"
-                    android:lineSpacingMultiplier="1.4" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                android:orientation="horizontal"
+                android:clipToPadding="false"
+                android:paddingEnd="8dp"
+                android:nestedScrollingEnabled="false" />
 
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

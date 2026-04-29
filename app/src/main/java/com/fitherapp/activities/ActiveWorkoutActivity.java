@@ -1,8 +1,8 @@
 package com.fitherapp.activities;
 
 import android.content.Intent;
-import android.media.ToneGenerator;
 import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
@@ -10,37 +10,33 @@ import android.view.View;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import com.fitherapp.R;
 import com.fitherapp.databinding.ActivityActiveWorkoutBinding;
 import com.fitherapp.models.*;
-import com.fitherapp.viewmodels.WorkoutViewModel;
+import com.fitherapp.viewmodels.MainViewModel;
 import java.util.List;
 import java.util.Locale;
 
 public class ActiveWorkoutActivity extends AppCompatActivity {
 
-    public static final String EXTRA_WORKOUT_DAY_ID = "workout_day_id";
-    public static final String EXTRA_WORKOUT_DAY_NAME = "workout_day_name";
+    public static final String EXTRA_PLAN_ID = "plan_id";
+    public static final String EXTRA_PLAN_NAME = "plan_name";
     public static final String EXTRA_BAND_LEVEL = "band_level";
 
     private ActivityActiveWorkoutBinding binding;
-    private WorkoutViewModel viewModel;
-
+    private MainViewModel viewModel;
     private List<ExerciseWithDetails> exercises;
-    private int currentExerciseIndex = 0;
+    private int currentIndex = 0;
     private int currentSet = 1;
-    private int totalRepsCompleted = 0;
-    private int workoutDayId;
+    private int totalReps = 0;
+    private int planId;
+    private String planName = "";
     private String bandLevel = "NONE";
-    private String workoutDayName = "";
-
-    private long workoutStartTime;
+    private long workoutStart;
     private CountDownTimer exerciseTimer;
     private CountDownTimer restTimer;
     private boolean isResting = false;
-    private static final int REST_DURATION_SECS = 30;
-
-    private ToneGenerator toneGenerator;
+    private static final int REST_SECS = 30;
+    private ToneGenerator toneGen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,24 +44,24 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         binding = ActivityActiveWorkoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        workoutDayId = getIntent().getIntExtra(EXTRA_WORKOUT_DAY_ID, -1);
-        workoutDayName = getIntent().getStringExtra(EXTRA_WORKOUT_DAY_NAME);
+        planId = getIntent().getIntExtra(EXTRA_PLAN_ID, -1);
+        planName = getIntent().getStringExtra(EXTRA_PLAN_NAME);
         bandLevel = getIntent().getStringExtra(EXTRA_BAND_LEVEL);
         if (bandLevel == null) bandLevel = "NONE";
+        if (planName == null) planName = "Workout";
 
-        toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, 80);
-        workoutStartTime = SystemClock.elapsedRealtime();
+        toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, 80);
+        workoutStart = SystemClock.elapsedRealtime();
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        viewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
-
-        binding.tvWorkoutTitle.setText(workoutDayName);
+        binding.tvWorkoutTitle.setText(planName);
         binding.chronometer.setBase(SystemClock.elapsedRealtime());
         binding.chronometer.start();
 
-        viewModel.getExercisesForDay(workoutDayId).observe(this, list -> {
+        viewModel.getExercisesForPlan(planId).observe(this, list -> {
             if (list != null && !list.isEmpty()) {
                 exercises = list;
-                updateTotalProgress();
+                updateProgress();
                 showCurrentExercise();
             }
         });
@@ -77,67 +73,63 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     }
 
     private void showCurrentExercise() {
-        if (exercises == null || currentExerciseIndex >= exercises.size()) {
+        if (exercises == null || currentIndex >= exercises.size()) {
             finishWorkout();
             return;
         }
-
         isResting = false;
         binding.restLayout.setVisibility(View.GONE);
         binding.exerciseLayout.setVisibility(View.VISIBLE);
 
-        ExerciseWithDetails ewd = exercises.get(currentExerciseIndex);
+        ExerciseWithDetails ewd = exercises.get(currentIndex);
         Exercise ex = ewd.exercise;
         WorkoutExercise we = ewd.workoutExercise;
 
         binding.tvExerciseName.setText(ex.name);
         binding.tvMuscleTarget.setText(ex.targetMuscles);
         binding.tvInstructions.setText(ex.instructions);
-        binding.tvSetCounter.setText(String.format(Locale.getDefault(),
-                "Set %d of %d", currentSet, we.sets));
+        binding.tvSetCounter.setText(String.format(Locale.getDefault(), "Set %d of %d", currentSet, we.sets));
 
         if (we.durationSecs > 0) {
-            binding.tvRepsOrTime.setText(we.durationSecs + " seconds");
+            binding.tvRepsOrTime.setText(we.durationSecs + "s");
             binding.progressCircular.setVisibility(View.VISIBLE);
             startExerciseTimer(we.durationSecs);
             binding.btnComplete.setText("Done");
         } else {
             binding.tvRepsOrTime.setText(ewd.getDisplayReps());
             binding.progressCircular.setVisibility(View.GONE);
-            cancelTimer();
+            cancelExerciseTimer();
             binding.btnComplete.setText("Completed");
         }
 
         if (we.isBilateral) {
             binding.tvBilateralNote.setVisibility(View.VISIBLE);
-            binding.tvBilateralNote.setText("Do both left and right sides");
         } else {
             binding.tvBilateralNote.setVisibility(View.GONE);
         }
 
         if (ex.requiresBand && !bandLevel.equals("NONE")) {
             binding.tvBandNote.setVisibility(View.VISIBLE);
-            binding.tvBandNote.setText("Use " + bandLevel.toLowerCase() + " resistance band");
+            binding.tvBandNote.setText("Using: " + bandLevel.toLowerCase() + " band");
         } else {
             binding.tvBandNote.setVisibility(View.GONE);
         }
-
-        updateTotalProgress();
+        updateProgress();
     }
 
     private void startExerciseTimer(int seconds) {
-        cancelTimer();
+        cancelExerciseTimer();
         binding.progressCircular.setMax(seconds);
         exerciseTimer = new CountDownTimer(seconds * 1000L, 100) {
             @Override
             public void onTick(long ms) {
-                int secsLeft = (int)(ms / 1000) + 1;
-                binding.tvRepsOrTime.setText(secsLeft + "s");
-                binding.progressCircular.setProgress(seconds - secsLeft + 1);
+                int left = (int)(ms / 1000) + 1;
+                binding.tvRepsOrTime.setText(left + "s");
+                binding.progressCircular.setProgress(seconds - left + 1);
             }
             @Override
             public void onFinish() {
-                toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP, 400);
+                toneGen.startTone(ToneGenerator.TONE_PROP_BEEP, 400);
                 binding.tvRepsOrTime.setText("Done!");
                 onExerciseCompleted();
             }
@@ -145,99 +137,75 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     }
 
     private void onExerciseCompleted() {
-        cancelTimer();
-        ExerciseWithDetails ewd = exercises.get(currentExerciseIndex);
-        totalRepsCompleted += ewd.workoutExercise.reps > 0
-                ? ewd.workoutExercise.reps : ewd.workoutExercise.durationSecs;
+        cancelExerciseTimer();
+        ExerciseWithDetails ewd = exercises.get(currentIndex);
+        totalReps += ewd.workoutExercise.reps > 0 ? ewd.workoutExercise.reps : ewd.workoutExercise.durationSecs;
 
         if (currentSet < ewd.workoutExercise.sets) {
             currentSet++;
-            startRest();
+            int restSecs = ewd.workoutExercise.restTimeSecs > 0 ? ewd.workoutExercise.restTimeSecs : REST_SECS;
+            startRest(restSecs);
         } else {
             currentSet = 1;
-            currentExerciseIndex++;
-            if (currentExerciseIndex < exercises.size()) {
-                startRest();
+            currentIndex++;
+            if (currentIndex < exercises.size()) {
+                startRest(REST_SECS);
             } else {
                 finishWorkout();
             }
         }
     }
 
-    private void startRest() {
+    private void startRest(int secs) {
         isResting = true;
         binding.exerciseLayout.setVisibility(View.GONE);
         binding.restLayout.setVisibility(View.VISIBLE);
-        binding.tvRestCountdown.setText(REST_DURATION_SECS + "s");
-        binding.restProgressBar.setMax(REST_DURATION_SECS);
-        binding.restProgressBar.setProgress(REST_DURATION_SECS);
-
+        binding.tvRestCountdown.setText(secs + "s");
+        binding.restProgressBar.setMax(secs);
+        binding.restProgressBar.setProgress(secs);
         if (restTimer != null) restTimer.cancel();
-        restTimer = new CountDownTimer(REST_DURATION_SECS * 1000L, 1000) {
+        restTimer = new CountDownTimer(secs * 1000L, 1000) {
             @Override
             public void onTick(long ms) {
-                int secsLeft = (int)(ms / 1000) + 1;
-                binding.tvRestCountdown.setText(secsLeft + "s");
-                binding.restProgressBar.setProgress(secsLeft);
+                int left = (int)(ms / 1000) + 1;
+                binding.tvRestCountdown.setText(left + "s");
+                binding.restProgressBar.setProgress(left);
             }
             @Override
             public void onFinish() {
-                toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP2, 300);
+                toneGen.startTone(ToneGenerator.TONE_PROP_BEEP2, 300);
                 showCurrentExercise();
             }
         }.start();
     }
 
-    private void skipRest() {
-        if (restTimer != null) restTimer.cancel();
-        showCurrentExercise();
-    }
+    private void skipRest() { if (restTimer != null) restTimer.cancel(); showCurrentExercise(); }
+    private void skipExercise() { cancelExerciseTimer(); currentSet = 1; currentIndex++; showCurrentExercise(); }
+    private void cancelExerciseTimer() { if (exerciseTimer != null) { exerciseTimer.cancel(); exerciseTimer = null; } }
 
-    private void skipExercise() {
-        cancelTimer();
-        currentSet = 1;
-        currentExerciseIndex++;
-        showCurrentExercise();
-    }
-
-    private void cancelTimer() {
-        if (exerciseTimer != null) { exerciseTimer.cancel(); exerciseTimer = null; }
-    }
-
-    private void updateTotalProgress() {
+    private void updateProgress() {
         if (exercises == null) return;
         int total = exercises.size();
-        int done = currentExerciseIndex;
-        binding.tvProgressLabel.setText(done + " / " + total + " exercises");
+        binding.tvProgressLabel.setText(currentIndex + " / " + total + " exercises");
         binding.linearProgress.setMax(total);
-        binding.linearProgress.setProgress(done);
+        binding.linearProgress.setProgress(currentIndex);
     }
 
     private void finishWorkout() {
         binding.chronometer.stop();
-        long elapsed = SystemClock.elapsedRealtime() - workoutStartTime;
-        int durationSecs = (int)(elapsed / 1000);
+        int durationSecs = (int)((SystemClock.elapsedRealtime() - workoutStart) / 1000);
+        int calories = exercises != null ? exercises.size() * 8 : 0;
 
-        int estimatedCalories = 0;
-        if (exercises != null) {
-            estimatedCalories = exercises.size() * 8;
-        }
-
-        WorkoutSession session = new WorkoutSession(
-                workoutDayId,
-                System.currentTimeMillis(),
-                durationSecs,
-                estimatedCalories,
-                bandLevel
-        );
-        session.totalRepsCompleted = totalRepsCompleted;
-        viewModel.saveSession(session);
+        WorkoutHistory history = new WorkoutHistory(0, planId, planName,
+                System.currentTimeMillis(), durationSecs, calories, bandLevel);
+        history.totalReps = totalReps;
+        viewModel.saveHistory(history);
 
         Intent intent = new Intent(this, WorkoutCompleteActivity.class);
         intent.putExtra(WorkoutCompleteActivity.EXTRA_DURATION_SECS, durationSecs);
-        intent.putExtra(WorkoutCompleteActivity.EXTRA_CALORIES, estimatedCalories);
+        intent.putExtra(WorkoutCompleteActivity.EXTRA_CALORIES, calories);
         intent.putExtra(WorkoutCompleteActivity.EXTRA_EXERCISES_DONE, exercises != null ? exercises.size() : 0);
-        intent.putExtra(WorkoutCompleteActivity.EXTRA_WORKOUT_NAME, workoutDayName);
+        intent.putExtra(WorkoutCompleteActivity.EXTRA_WORKOUT_NAME, planName);
         startActivity(intent);
         finish();
     }
@@ -245,7 +213,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     private void confirmQuit() {
         new AlertDialog.Builder(this)
                 .setTitle("Quit Workout?")
-                .setMessage("Progress for this session will not be saved.")
+                .setMessage("Progress will not be saved.")
                 .setPositiveButton("Quit", (d, w) -> finish())
                 .setNegativeButton("Keep Going", null)
                 .show();
@@ -254,8 +222,8 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        cancelTimer();
+        cancelExerciseTimer();
         if (restTimer != null) restTimer.cancel();
-        if (toneGenerator != null) toneGenerator.release();
+        if (toneGen != null) toneGen.release();
     }
 }

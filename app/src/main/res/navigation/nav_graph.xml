@@ -8,20 +8,15 @@
         android:name="com.fitherapp.fragments.HomeFragment"
         android:label="Home" />
 
-    <fragment android:id="@+id/workoutPlanFragment"
-        android:name="com.fitherapp.fragments.WorkoutPlanFragment"
-        android:label="Plan" />
+    <fragment android:id="@+id/workoutsFragment"
+        android:name="com.fitherapp.fragments.WorkoutsFragment"
+        android:label="Workouts" />
 
     <fragment android:id="@+id/progressFragment"
         android:name="com.fitherapp.fragments.ProgressFragment"
         android:label="Progress" />
 
-    <fragment android:id="@+id/nutritionFragment"
-        android:name="com.fitherapp.fragments.NutritionFragment"
-        android:label="Nutrition" />
-
     <fragment android:id="@+id/profileFragment"
         android:name="com.fitherapp.fragments.ProfileFragment"
         android:label="Profile" />
-
 </navigation>

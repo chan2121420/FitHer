@@ -11,7 +11,7 @@ import com.fitherapp.models.ExerciseWithDetails;
 
 public class ExerciseListAdapter extends ListAdapter<ExerciseWithDetails, ExerciseListAdapter.ViewHolder> {
 
-    public ExerciseListAdapter() { super(DIFF_CALLBACK); }
+    public ExerciseListAdapter() { super(DIFF); }
 
     @NonNull
     @Override
@@ -27,7 +27,10 @@ public class ExerciseListAdapter extends ListAdapter<ExerciseWithDetails, Exerci
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ItemExerciseListBinding b;
-        public ViewHolder(ItemExerciseListBinding b) { super(b.getRoot()); this.b = b; }
+
+        public ViewHolder(ItemExerciseListBinding b) {
+            super(b.getRoot()); this.b = b;
+        }
 
         public void bind(ExerciseWithDetails ewd) {
             b.tvExerciseName.setText(ewd.exercise.name);
@@ -40,29 +43,17 @@ public class ExerciseListAdapter extends ListAdapter<ExerciseWithDetails, Exerci
             } else {
                 b.tvNotes.setVisibility(android.view.View.GONE);
             }
-            int catColor;
-            switch (ewd.exercise.category) {
-                case "GLUTE":    catColor = 0xFF1D9E75; break;
-                case "HIP":      catColor = 0xFF534AB7; break;
-                case "CORE":     catColor = 0xFFD85A30; break;
-                case "WARMUP":   catColor = 0xFFBA7517; break;
-                case "COOLDOWN": catColor = 0xFF378ADD; break;
-                default:         catColor = 0xFF888780; break;
-            }
-            b.viewCategoryDot.setBackgroundColor(catColor);
         }
     }
 
-    private static final DiffUtil.ItemCallback<ExerciseWithDetails> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<ExerciseWithDetails>() {
+    private static final DiffUtil.ItemCallback<ExerciseWithDetails> DIFF = new DiffUtil.ItemCallback<ExerciseWithDetails>() {
         @Override
         public boolean areItemsTheSame(@NonNull ExerciseWithDetails a, @NonNull ExerciseWithDetails b) {
             return a.workoutExercise.id == b.workoutExercise.id;
         }
         @Override
         public boolean areContentsTheSame(@NonNull ExerciseWithDetails a, @NonNull ExerciseWithDetails b) {
-            return a.workoutExercise.reps == b.workoutExercise.reps &&
-                   a.workoutExercise.sets == b.workoutExercise.sets;
+            return a.workoutExercise.reps == b.workoutExercise.reps;
         }
     };
 }

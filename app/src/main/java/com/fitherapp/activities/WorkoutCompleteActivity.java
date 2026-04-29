@@ -22,41 +22,37 @@ public class WorkoutCompleteActivity extends AppCompatActivity {
         int durationSecs = getIntent().getIntExtra(EXTRA_DURATION_SECS, 0);
         int calories = getIntent().getIntExtra(EXTRA_CALORIES, 0);
         int exercises = getIntent().getIntExtra(EXTRA_EXERCISES_DONE, 0);
-        String workoutName = getIntent().getStringExtra(EXTRA_WORKOUT_NAME);
+        String name = getIntent().getStringExtra(EXTRA_WORKOUT_NAME);
 
         int mins = durationSecs / 60;
         int secs = durationSecs % 60;
-
-        binding.tvWorkoutName.setText(workoutName != null ? workoutName : "Workout");
+        binding.tvWorkoutName.setText(name != null ? name : "Workout");
         binding.tvDuration.setText(String.format(Locale.getDefault(), "%d:%02d", mins, secs));
         binding.tvCalories.setText(String.valueOf(calories));
         binding.tvExercisesDone.setText(String.valueOf(exercises));
-        binding.tvMotivation.setText(getMotivationalMessage());
+        binding.tvMotivation.setText(getMotivation());
 
         binding.btnHome.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             finish();
         });
 
         binding.btnShare.setOnClickListener(v -> {
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("text/plain");
-            share.putExtra(Intent.EXTRA_TEXT,
-                    "Just completed " + workoutName + " — " + mins + " mins, "
-                            + calories + " calories burned! #FitHer #GluteGains");
+            share.putExtra(Intent.EXTRA_TEXT, "Just crushed " + name + " — " + mins + " mins, " + calories + " cal! #FitHer");
             startActivity(Intent.createChooser(share, "Share your workout"));
         });
     }
 
-    private String getMotivationalMessage() {
-        String[] messages = {
-            "Every rep brings you closer to your goal!",
-            "Your glutes are growing stronger every session!",
-            "Consistency is your superpower. Keep going!",
-            "Results don't lie — you're building something amazing!",
-            "Another session done. The body you want is being built right now."
+    private String getMotivation() {
+        String[] m = {
+                "Every rep brings you closer to your goal!",
+                "Your glutes are growing stronger every session!",
+                "Consistency is your superpower. Keep going!",
+                "Results don't lie — you're building something amazing!",
+                "Another session done. The body you want is being built right now."
         };
-        return messages[(int)(Math.random() * messages.length)];
+        return m[(int)(Math.random() * m.length)];
     }
 }

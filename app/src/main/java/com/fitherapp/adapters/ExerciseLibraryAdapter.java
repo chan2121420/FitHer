@@ -11,7 +11,7 @@ import com.fitherapp.models.Exercise;
 
 public class ExerciseLibraryAdapter extends ListAdapter<Exercise, ExerciseLibraryAdapter.ViewHolder> {
 
-    public ExerciseLibraryAdapter() { super(DIFF_CALLBACK); }
+    public ExerciseLibraryAdapter() { super(DIFF); }
 
     @NonNull
     @Override
@@ -36,35 +36,21 @@ public class ExerciseLibraryAdapter extends ListAdapter<Exercise, ExerciseLibrar
 
         public void bind(Exercise ex) {
             b.tvName.setText(ex.name);
-            b.chipCategory.setText(ex.category);
+            b.tvCategory.setText(ex.category);
+            b.tvType.setText(ex.type);
             b.tvMuscles.setText(ex.targetMuscles);
             b.tvDescription.setText(ex.description);
             b.tvInstructions.setText(ex.instructions);
             b.tvDifficulty.setText(ex.difficulty);
-            b.tvBandRequired.setText(ex.requiresBand ? "Band: Optional / Recommended" : "Band: Not required");
-            b.tvBandRequired.setTextColor(ex.requiresBand ? 0xFF1D9E75 : 0xFF888780);
 
-            // Default reps/time
             if (ex.defaultDurationSecs > 0) {
-                b.tvDefaultReps.setText(ex.defaultDurationSecs + " seconds");
+                b.tvDefaultReps.setText(ex.defaultDurationSecs + "s");
             } else {
-                b.tvDefaultReps.setText("x" + ex.defaultReps);
+                b.tvDefaultReps.setText("×" + ex.defaultReps);
             }
 
-            int catColor;
-            switch (ex.category) {
-                case "GLUTE":    catColor = 0xFF1D9E75; break;
-                case "HIP":      catColor = 0xFF534AB7; break;
-                case "CORE":     catColor = 0xFFD85A30; break;
-                case "WARMUP":   catColor = 0xFFBA7517; break;
-                case "COOLDOWN": catColor = 0xFF378ADD; break;
-                default:         catColor = 0xFF888780; break;
-            }
-            b.chipCategory.setChipBackgroundColorResource(android.R.color.transparent);
-            b.chipCategory.setChipStrokeWidth(2f);
-
-            // Toggle expanded instructions
             b.expandedLayout.setVisibility(expanded ? android.view.View.VISIBLE : android.view.View.GONE);
+            b.ivExpandArrow.setRotation(expanded ? 180f : 0f);
             b.getRoot().setOnClickListener(v -> {
                 expanded = !expanded;
                 b.expandedLayout.setVisibility(expanded ? android.view.View.VISIBLE : android.view.View.GONE);
@@ -73,13 +59,10 @@ public class ExerciseLibraryAdapter extends ListAdapter<Exercise, ExerciseLibrar
         }
     }
 
-    private static final DiffUtil.ItemCallback<Exercise> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<Exercise>() {
+    private static final DiffUtil.ItemCallback<Exercise> DIFF = new DiffUtil.ItemCallback<Exercise>() {
         @Override
         public boolean areItemsTheSame(@NonNull Exercise a, @NonNull Exercise b) { return a.id == b.id; }
         @Override
-        public boolean areContentsTheSame(@NonNull Exercise a, @NonNull Exercise b) {
-            return a.name.equals(b.name);
-        }
+        public boolean areContentsTheSame(@NonNull Exercise a, @NonNull Exercise b) { return a.name.equals(b.name); }
     };
 }

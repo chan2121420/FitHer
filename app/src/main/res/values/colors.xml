@@ -1,35 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand -->
-    <color name="teal_primary">#1D9E75</color>
-    <color name="teal_dark">#0F6E56</color>
-    <color name="teal_light">#E1F5EE</color>
-    <color name="purple_primary">#534AB7</color>
-    <color name="purple_dark">#3C3489</color>
-    <color name="purple_light">#EEEDFE</color>
-    <color name="coral_primary">#D85A30</color>
-    <color name="coral_light">#FAECE7</color>
-    <color name="amber_primary">#BA7517</color>
+    <!-- Purple Brand -->
+    <color name="purple_primary">#6A1B9A</color>
+    <color name="purple_dark">#4A148C</color>
+    <color name="purple_medium">#8E24AA</color>
+    <color name="purple_light">#CE93D8</color>
+    <color name="purple_surface">#F3E5F5</color>
 
-    <!-- Neutral -->
-    <color name="gray_dark">#2C2C2A</color>
-    <color name="gray_mid">#888780</color>
-    <color name="gray_light">#F1EFE8</color>
+    <!-- Accent -->
+    <color name="pink_accent">#E91E8C</color>
+    <color name="pink_light">#FCE4EC</color>
+    <color name="teal_accent">#00BFA5</color>
+    <color name="orange_accent">#FF6D00</color>
+
+    <!-- Neutrals -->
+    <color name="gray_dark">#1C1B1F</color>
+    <color name="gray_mid">#79747E</color>
+    <color name="gray_light">#E7E0EC</color>
+    <color name="gray_surface">#FFFBFE</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 
-    <!-- System -->
-    <color name="colorPrimary">#1D9E75</color>
-    <color name="colorPrimaryDark">#0F6E56</color>
-    <color name="colorAccent">#534AB7</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
+    <!-- Semantic -->
+    <color name="success">#2E7D32</color>
+    <color name="warning">#F57F17</color>
+    <color name="error">#B71C1C</color>
+
+    <!-- Surface -->
+    <color name="colorBackground">#FFFBFE</color>
     <color name="colorSurface">#FFFFFF</color>
-    <color name="colorBackground">#F8F8F6</color>
-    <color name="colorOnBackground">#2C2C2A</color>
+    <color name="colorOnBackground">#1C1B1F</color>
+    <color name="colorOnSurface">#1C1B1F</color>
+    <color name="colorPrimary">#6A1B9A</color>
+    <color name="colorPrimaryVariant">#4A148C</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondary">#E91E8C</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
 
     <!-- Dark theme -->
-    <color name="colorPrimaryDarkTheme">#5DCAA5</color>
-    <color name="colorSurfaceDark">#1E1E1C</color>
-    <color name="colorBackgroundDark">#121210</color>
-    <color name="colorOnBackgroundDark">#E8E6E0</color>
+    <color name="colorBackgroundDark">#1C1B1F</color>
+    <color name="colorSurfaceDark">#2B2930</color>
+    <color name="colorOnBackgroundDark">#E6E1E5</color>
+    <color name="colorOnSurfaceDark">#E6E1E5</color>
+    <color name="purple_primary_dark">#CE93D8</color>
+
+    <!-- Nav -->
+    <color name="nav_selected">#6A1B9A</color>
+    <color name="nav_unselected">#79747E</color>
 </resources>

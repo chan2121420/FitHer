@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="?android:attr/colorBackground"
     android:fillViewport="true">
 
     <LinearLayout
@@ -12,25 +12,32 @@
         android:orientation="vertical"
         android:padding="28dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="60dp" />
+        <View android:layout_width="1dp" android:layout_height="48dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="FitHer"
-            android:textSize="40sp"
+            android:text="Welcome to"
+            android:textSize="18sp"
+            android:textColor="?attr/colorOnSurface"
+            android:alpha="0.7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FitHer ✨"
+            android:textSize="42sp"
             android:textStyle="bold"
-            android:textColor="@color/teal_primary" />
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginBottom="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your personal glute &amp; hip growth plan"
-            android:textSize="16sp"
-            android:textColor="@color/gray_mid"
-            android:layout_marginTop="6dp"
+            android:text="Let's personalise your fitness journey"
+            android:textSize="15sp"
+            android:textColor="?attr/colorOnSurface"
+            android:alpha="0.6"
             android:layout_marginBottom="36dp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -38,7 +45,7 @@
             android:layout_height="wrap_content"
             android:hint="Your name"
             style="@style/FitHer.TextInput"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="24dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
@@ -47,40 +54,68 @@
                 android:imeOptions="actionNext" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Current weight (kg) — optional"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="16dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etWeight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:imeOptions="actionNext" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:text="PRIMARY GOAL"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginBottom="12dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <RadioGroup
+            android:id="@+id/rgGoal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your fitness goal"
-            style="@style/FitHer.TextInput"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
+            <RadioButton android:id="@+id/rbGoalGlutes" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="🍑  Grow glutes" android:checked="true"
+                android:buttonTint="?attr/colorPrimary" />
+            <RadioButton android:id="@+id/rbGoalLegs" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="🦵  Tone legs"
+                android:buttonTint="?attr/colorPrimary" />
+            <RadioButton android:id="@+id/rbGoalFullBody" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="💪  Full body sculpt"
+                android:buttonTint="?attr/colorPrimary" />
+            <RadioButton android:id="@+id/rbGoalWeightLoss" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="🔥  Weight loss"
+                android:buttonTint="?attr/colorPrimary" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FITNESS LEVEL"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginBottom="12dp" />
+
+        <RadioGroup
+            android:id="@+id/rgLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginBottom="36dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etGoal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="e.g. Grow my glutes and hips"
-                android:inputType="text"
-                android:imeOptions="actionDone" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <RadioButton android:id="@+id/rbLevelBeginner" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="🌱  Beginner" android:checked="true"
+                android:buttonTint="?attr/colorPrimary" />
+            <RadioButton android:id="@+id/rbLevelIntermediate" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="⚡  Intermediate"
+                android:buttonTint="?attr/colorPrimary" />
+            <RadioButton android:id="@+id/rbLevelAdvanced" android:layout_width="match_parent"
+                android:layout_height="48dp" android:text="🔥  Advanced"
+                android:buttonTint="?attr/colorPrimary" />
+        </RadioGroup>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnGetStarted"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="@string/get_started"
+            android:text="Let's Go!"
             style="@style/FitHer.Button.Primary" />
 
     </LinearLayout>

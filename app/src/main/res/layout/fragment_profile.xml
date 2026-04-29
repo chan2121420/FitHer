@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="?android:attr/colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,20 +10,19 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Avatar header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:paddingTop="16dp"
-            android:paddingBottom="24dp">
+            android:paddingTop="20dp"
+            android:paddingBottom="28dp">
 
             <TextView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:text="F"
-                android:textSize="32sp"
+                android:textSize="36sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:gravity="center"
@@ -32,162 +31,87 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textSize="22sp"
+                android:text="My Profile"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="@color/gray_dark"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginTop="12dp" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="YOUR DETAILS"
-            android:textSize="11sp"
-            android:letterSpacing="0.1"
-            android:textStyle="bold"
-            android:textColor="@color/gray_mid"
-            android:layout_marginBottom="14dp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="DETAILS" style="@style/FitHer.SectionTitle" android:layout_marginBottom="14dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Your name"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="12dp">
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="Your name" style="@style/FitHer.TextInput" android:layout_marginBottom="12dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProfileName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Current weight (kg)"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="12dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etProfileWeight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Fitness goal"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="24dp">
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="Fitness goal (e.g. GLUTES)" style="@style/FitHer.TextInput" android:layout_marginBottom="12dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProfileGoal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MASS GAINER SETTINGS"
-            android:textSize="11sp"
-            android:letterSpacing="0.1"
-            android:textStyle="bold"
-            android:textColor="@color/gray_mid"
-            android:layout_marginBottom="14dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Brand name (e.g. Freak Mass)"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="12dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etMassGainerBrand"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Calories per serving"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="24dp">
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="Fitness level (BEGINNER / INTERMEDIATE / ADVANCED)" style="@style/FitHer.TextInput" android:layout_marginBottom="24dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etMassGainerCalories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:id="@+id/etProfileLevel"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="APP SETTINGS"
-            android:textSize="11sp"
-            android:letterSpacing="0.1"
-            android:textStyle="bold"
-            android:textColor="@color/gray_mid"
-            android:layout_marginBottom="14dp" />
+        <Text android:layout_width="wrap_content" android:layout_height="wrap_content"
+            style="@style/FitHer.SectionTitle" android:text="SETTINGS" android:layout_marginBottom="14dp"
+            xmlns:android="http://schemas.android.com/apk/res/android"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            style="@style/FitHer.Card">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp">
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1" android:orientation="vertical">
+        <androidx.cardview.widget.CardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginBottom="10dp" style="@style/FitHer.Card">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="18dp">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:orientation="vertical">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Daily reminders" android:textSize="14sp" android:textColor="@color/gray_dark" />
+                        android:text="Daily reminders" android:textSize="15sp" android:textColor="?attr/colorOnSurface" />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="8:00 AM every day" android:textSize="12sp" android:textColor="@color/gray_mid" />
+                        android:text="8:00 AM every day" android:textSize="12sp"
+                        android:textColor="?attr/colorOnSurface" android:alpha="0.6" />
                 </LinearLayout>
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchReminders"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
-            style="@style/FitHer.Card">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp">
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1" android:orientation="vertical">
+        <androidx.cardview.widget.CardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginBottom="28dp" style="@style/FitHer.Card">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="18dp">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:orientation="vertical">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Dark mode" android:textSize="14sp" android:textColor="@color/gray_dark" />
+                        android:text="Dark mode" android:textSize="15sp" android:textColor="?attr/colorOnSurface" />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Switch to dark theme" android:textSize="12sp" android:textColor="@color/gray_mid" />
+                        android:text="Switch to dark theme" android:textSize="12sp"
+                        android:textColor="?attr/colorOnSurface" android:alpha="0.6" />
                 </LinearLayout>
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchDarkMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveProfile"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="54dp"
             android:text="Save Profile"
             style="@style/FitHer.Button.Primary" />
 

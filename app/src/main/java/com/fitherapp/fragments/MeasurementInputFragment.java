@@ -7,7 +7,7 @@ import androidx.annotation.*;
 import androidx.lifecycle.ViewModelProvider;
 import com.fitherapp.databinding.FragmentMeasurementInputBinding;
 import com.fitherapp.models.BodyMeasurement;
-import com.fitherapp.viewmodels.WorkoutViewModel;
+import com.fitherapp.viewmodels.MainViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class MeasurementInputFragment extends BottomSheetDialogFragment {
@@ -23,7 +23,7 @@ public class MeasurementInputFragment extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        WorkoutViewModel viewModel = new ViewModelProvider(requireActivity()).get(WorkoutViewModel.class);
+        MainViewModel viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
         binding.btnSaveMeasurement.setOnClickListener(v -> {
             try {
@@ -37,7 +37,6 @@ public class MeasurementInputFragment extends BottomSheetDialogFragment {
                 m.thighRightCm = parseFloat(binding.etThighRight.getText().toString());
                 m.bustCm = parseFloat(binding.etBust.getText().toString());
                 m.notes = binding.etNotes.getText().toString();
-
                 viewModel.saveMeasurement(m);
                 Toast.makeText(requireContext(), "Measurements saved!", Toast.LENGTH_SHORT).show();
                 dismiss();
@@ -45,7 +44,6 @@ public class MeasurementInputFragment extends BottomSheetDialogFragment {
                 Toast.makeText(requireContext(), "Please enter valid numbers", Toast.LENGTH_SHORT).show();
             }
         });
-
         binding.btnCancel.setOnClickListener(v -> dismiss());
     }
 
