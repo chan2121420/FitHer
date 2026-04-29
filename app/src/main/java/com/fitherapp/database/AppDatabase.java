@@ -4,6 +4,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.room.*;
 import com.fitherapp.models.*;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(
     entities = {

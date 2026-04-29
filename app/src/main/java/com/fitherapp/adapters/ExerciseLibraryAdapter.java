@@ -36,7 +36,7 @@ public class ExerciseLibraryAdapter extends ListAdapter<Exercise, ExerciseLibrar
 
         public void bind(Exercise ex) {
             b.tvName.setText(ex.name);
-            b.tvCategory.setText(ex.category);
+            b.chipCategory.setText(ex.category);
             b.tvMuscles.setText(ex.targetMuscles);
             b.tvDescription.setText(ex.description);
             b.tvInstructions.setText(ex.instructions);
