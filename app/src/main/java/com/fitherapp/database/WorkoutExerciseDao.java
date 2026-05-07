@@ -23,8 +23,14 @@ public interface WorkoutExerciseDao {
     @Query("SELECT * FROM workout_exercises WHERE workoutPlanId = :planId ORDER BY orderIndex ASC")
     List<WorkoutExercise> getForPlan(int planId);
 
+    // 1. The cleaned up "Day" query returning ExerciseWithDetails
     @Transaction
-    @Query("SELECT * FROM workout_exercises WHERE workoutPlanId = :planId ORDER BY orderIndex ASC")
+    @Query("SELECT * FROM workout_exercises WHERE workoutPlanId = :workoutDayId")
+    LiveData<List<ExerciseWithDetails>> getExercisesWithDetailsForDay(int workoutDayId);
+
+    // 2. The missing "Plan" query your repository was asking for!
+    @Transaction
+    @Query("SELECT * FROM workout_exercises WHERE workoutPlanId = :planId")
     LiveData<List<ExerciseWithDetails>> getExercisesWithDetailsForPlan(int planId);
 
     @Query("DELETE FROM workout_exercises WHERE workoutPlanId = :planId")

@@ -13,6 +13,8 @@ import com.fitherapp.models.*;
                 WorkoutPlan.class,
                 WorkoutExercise.class,
                 WorkoutHistory.class,
+                WorkoutDay.class,
+                WorkoutSession.class,
                 BodyMeasurement.class,
                 NutritionLog.class
         },
@@ -27,6 +29,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ExerciseDao exerciseDao();
     public abstract WorkoutPlanDao workoutPlanDao();
     public abstract WorkoutExerciseDao workoutExerciseDao();
+    public abstract WorkoutDayDao workoutDayDao();
+    public abstract WorkoutSessionDao workoutSessionDao();
     public abstract WorkoutHistoryDao workoutHistoryDao();
     public abstract BodyMeasurementDao bodyMeasurementDao();
     public abstract NutritionLogDao nutritionLogDao();

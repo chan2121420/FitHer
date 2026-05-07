@@ -45,7 +45,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         public void bind(String category, int color, OnCategoryClickListener listener) {
             b.tvCategory.setText(category);
-            b.cardCategory.setCardBackgroundColor(color);
+            b.cardCategory.setBackgroundColor(color);
             b.getRoot().setOnClickListener(v -> listener.onClick(category));
         }
     }

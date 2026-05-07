@@ -21,6 +21,8 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 
+    <color name="coral_primary">#FF7F50</color>
+    <color name="coral_light">#FFA07A</color>
     <!-- Semantic -->
     <color name="success">#2E7D32</color>
     <color name="warning">#F57F17</color>
@@ -43,6 +45,8 @@
     <color name="colorOnBackgroundDark">#E6E1E5</color>
     <color name="colorOnSurfaceDark">#E6E1E5</color>
     <color name="purple_primary_dark">#CE93D8</color>
+    <color name="teal_primary">#009688</color>
+    <color name="teal_dark">#00796B</color>
 
     <!-- Nav -->
     <color name="nav_selected">#6A1B9A</color>
