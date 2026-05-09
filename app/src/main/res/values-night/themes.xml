@@ -4,8 +4,7 @@
         <item name="colorPrimary">@color/teal_primary</item>
         <item name="colorPrimaryVariant">@color/teal_dark</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/purple_primary</item>
-        <item name="colorSecondaryVariant">@color/purple_dark</item>
+        <item name="colorSecondary">@color/purple_light</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorSurface">@color/colorSurfaceDark</item>
         <item name="colorOnSurface">@color/colorOnBackgroundDark</item>

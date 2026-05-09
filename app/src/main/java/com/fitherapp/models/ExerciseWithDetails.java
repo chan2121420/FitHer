@@ -15,12 +15,20 @@ public class ExerciseWithDetails {
             return workoutExercise.durationSecs + "s";
         }
         if (workoutExercise.isBilateral) {
-            return "x" + workoutExercise.reps + " each side";
+            return "×" + workoutExercise.reps + " each";
         }
-        return "x" + workoutExercise.reps;
+        return "×" + workoutExercise.reps;
     }
 
     public String getSetsSummary() {
         return workoutExercise.sets + " sets";
+    }
+
+    public String getTempoDisplay() {
+        if (workoutExercise.tempoEccentric > 0) {
+            return workoutExercise.tempoConcentric + "-" + workoutExercise.tempoHold
+                    + "-" + workoutExercise.tempoEccentric + " tempo";
+        }
+        return null;
     }
 }

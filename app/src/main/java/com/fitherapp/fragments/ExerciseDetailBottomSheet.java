@@ -5,13 +5,13 @@ import android.view.*;
 import androidx.annotation.*;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import com.fitherapp.activities.ExerciseTutorialActivity;
 import com.fitherapp.adapters.ExerciseListAdapter;
 import com.fitherapp.databinding.FragmentExerciseDetailBottomSheetBinding;
 import com.fitherapp.viewmodels.MainViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class ExerciseDetailBottomSheet extends BottomSheetDialogFragment {
-
     private static final String ARG_PLAN_ID = "plan_id";
     private static final String ARG_TITLE = "title";
     private FragmentExerciseDetailBottomSheetBinding binding;
@@ -38,7 +38,9 @@ public class ExerciseDetailBottomSheet extends BottomSheetDialogFragment {
         int planId = getArguments().getInt(ARG_PLAN_ID);
         String title = getArguments().getString(ARG_TITLE);
         binding.tvSheetTitle.setText(title);
-        ExerciseListAdapter adapter = new ExerciseListAdapter();
+
+        ExerciseListAdapter adapter = new ExerciseListAdapter(ewd ->
+                ExerciseTutorialActivity.launch(requireActivity(), ewd.exercise));
         binding.rvExercises.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvExercises.setAdapter(adapter);
         viewModel.getExercisesForPlan(planId).observe(getViewLifecycleOwner(), list -> {
@@ -46,9 +48,5 @@ public class ExerciseDetailBottomSheet extends BottomSheetDialogFragment {
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+    @Override public void onDestroyView() { super.onDestroyView(); binding = null; }
 }

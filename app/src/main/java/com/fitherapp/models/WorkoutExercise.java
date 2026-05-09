@@ -25,7 +25,10 @@ public class WorkoutExercise {
     public int restTimeSecs;
     public boolean isBilateral;
     public String notes;
-    public String modeOverride; // BODYWEIGHT, BANDS, WEIGHTED
+    public String modeOverride;
+    public int tempoEccentric;  // seconds for lowering
+    public int tempoConcentric; // seconds for lifting
+    public int tempoHold;       // seconds to hold
 
     public WorkoutExercise() {}
 

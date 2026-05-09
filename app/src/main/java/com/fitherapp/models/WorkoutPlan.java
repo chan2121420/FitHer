@@ -7,17 +7,20 @@ import androidx.room.PrimaryKey;
 public class WorkoutPlan {
     @PrimaryKey(autoGenerate = true)
     public int id;
-    public String supabaseId;
-    public int userId;
     public String name;
     public String description;
-    public String difficulty;     // BEGINNER, INTERMEDIATE, ADVANCED
-    public String category;       // GLUTES, LEGS, FULL_BODY, etc.
+    public String difficulty;
+    public String category;
     public int estimatedMins;
     public int estimatedCalories;
     public boolean isCustom;
     public long createdAt;
-    public String exerciseIdsJson; // JSON array of exercise IDs + config
+    public String week;           // e.g. "Week 1", "Week 2"
+    public int daysPerWeek;
+    public String focusDescription; // e.g. "Build glute strength and hip width"
+    public String level;          // BEGINNER, INTERMEDIATE, ADVANCED
+    public String equipment;      // NONE, BANDS, DUMBBELLS, FULL_GYM
+    public int exerciseCount;
 
     public WorkoutPlan() {}
 

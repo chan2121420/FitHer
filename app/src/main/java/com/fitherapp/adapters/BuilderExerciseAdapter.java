@@ -14,13 +14,9 @@ public class BuilderExerciseAdapter extends ListAdapter<Exercise, BuilderExercis
     public interface OnRemoveListener { void onRemove(Exercise exercise); }
     private final OnRemoveListener listener;
 
-    public BuilderExerciseAdapter(OnRemoveListener listener) {
-        super(DIFF);
-        this.listener = listener;
-    }
+    public BuilderExerciseAdapter(OnRemoveListener listener) { super(DIFF); this.listener = listener; }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(ItemBuilderExerciseBinding.inflate(
                 LayoutInflater.from(parent.getContext()), parent, false));
@@ -34,22 +30,19 @@ public class BuilderExerciseAdapter extends ListAdapter<Exercise, BuilderExercis
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ItemBuilderExerciseBinding b;
 
-        public ViewHolder(ItemBuilderExerciseBinding b) {
-            super(b.getRoot()); this.b = b;
-        }
+        public ViewHolder(ItemBuilderExerciseBinding b) { super(b.getRoot()); this.b = b; }
 
         public void bind(Exercise ex, OnRemoveListener listener) {
             b.tvExerciseName.setText(ex.name);
             b.tvCategory.setText(ex.category);
             b.tvReps.setText(ex.defaultDurationSecs > 0 ? ex.defaultDurationSecs + "s" : "×" + ex.defaultReps);
+            b.tvSets.setText(ex.defaultSets + " sets");
             b.btnRemove.setOnClickListener(v -> listener.onRemove(ex));
         }
     }
 
     private static final DiffUtil.ItemCallback<Exercise> DIFF = new DiffUtil.ItemCallback<Exercise>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull Exercise a, @NonNull Exercise b) { return a.id == b.id; }
-        @Override
-        public boolean areContentsTheSame(@NonNull Exercise a, @NonNull Exercise b) { return a.name.equals(b.name); }
+        @Override public boolean areItemsTheSame(@NonNull Exercise a, @NonNull Exercise b) { return a.id == b.id; }
+        @Override public boolean areContentsTheSame(@NonNull Exercise a, @NonNull Exercise b) { return a.name.equals(b.name); }
     };
 }

@@ -34,9 +34,9 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     private long workoutStart;
     private CountDownTimer exerciseTimer;
     private CountDownTimer restTimer;
-    private boolean isResting = false;
     private static final int REST_SECS = 30;
     private ToneGenerator toneGen;
+    private Exercise currentExercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,11 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         binding.btnSkip.setOnClickListener(v -> skipExercise());
         binding.btnQuit.setOnClickListener(v -> confirmQuit());
         binding.btnRestSkip.setOnClickListener(v -> skipRest());
+        binding.btnTutorial.setOnClickListener(v -> {
+            if (currentExercise != null) {
+                ExerciseTutorialActivity.launch(this, currentExercise);
+            }
+        });
     }
 
     private void showCurrentExercise() {
@@ -77,18 +82,39 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
             finishWorkout();
             return;
         }
-        isResting = false;
+
         binding.restLayout.setVisibility(View.GONE);
         binding.exerciseLayout.setVisibility(View.VISIBLE);
 
         ExerciseWithDetails ewd = exercises.get(currentIndex);
+        currentExercise = ewd.exercise;
         Exercise ex = ewd.exercise;
         WorkoutExercise we = ewd.workoutExercise;
 
         binding.tvExerciseName.setText(ex.name);
         binding.tvMuscleTarget.setText(ex.targetMuscles);
-        binding.tvInstructions.setText(ex.instructions);
         binding.tvSetCounter.setText(String.format(Locale.getDefault(), "Set %d of %d", currentSet, we.sets));
+
+        // Notes/coaching
+        if (we.notes != null && !we.notes.isEmpty()) {
+            binding.tvCoachNote.setText("💡 " + we.notes);
+            binding.tvCoachNote.setVisibility(View.VISIBLE);
+        } else if (ex.tips != null && !ex.tips.isEmpty()) {
+            // Show first sentence of tips
+            String tip = ex.tips.split("\\.")[0];
+            binding.tvCoachNote.setText("💡 " + tip);
+            binding.tvCoachNote.setVisibility(View.VISIBLE);
+        } else {
+            binding.tvCoachNote.setVisibility(View.GONE);
+        }
+
+        // Breathing cue
+        if (ex.breathingCue != null && !ex.breathingCue.isEmpty()) {
+            binding.tvBreathingCue.setText("🫁 " + ex.breathingCue);
+            binding.tvBreathingCue.setVisibility(View.VISIBLE);
+        } else {
+            binding.tvBreathingCue.setVisibility(View.GONE);
+        }
 
         if (we.durationSecs > 0) {
             binding.tvRepsOrTime.setText(we.durationSecs + "s");
@@ -99,7 +125,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
             binding.tvRepsOrTime.setText(ewd.getDisplayReps());
             binding.progressCircular.setVisibility(View.GONE);
             cancelExerciseTimer();
-            binding.btnComplete.setText("Completed");
+            binding.btnComplete.setText("Completed ✓");
         }
 
         if (we.isBilateral) {
@@ -110,10 +136,20 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
         if (ex.requiresBand && !bandLevel.equals("NONE")) {
             binding.tvBandNote.setVisibility(View.VISIBLE);
-            binding.tvBandNote.setText("Using: " + bandLevel.toLowerCase() + " band");
+            binding.tvBandNote.setText("🔴 Using: " + bandLevel.toLowerCase() + " band");
         } else {
             binding.tvBandNote.setVisibility(View.GONE);
         }
+
+        // Instructions preview
+        if (ex.instructions != null && !ex.instructions.isEmpty()) {
+            // Show step 1 only in active workout
+            String[] steps = ex.instructions.split("\n");
+            if (steps.length > 0) {
+                binding.tvInstructions.setText(steps[0]);
+            }
+        }
+
         updateProgress();
     }
 
@@ -144,25 +180,34 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         if (currentSet < ewd.workoutExercise.sets) {
             currentSet++;
             int restSecs = ewd.workoutExercise.restTimeSecs > 0 ? ewd.workoutExercise.restTimeSecs : REST_SECS;
-            startRest(restSecs);
+            startRest(restSecs, false);
         } else {
             currentSet = 1;
             currentIndex++;
             if (currentIndex < exercises.size()) {
-                startRest(REST_SECS);
+                startRest(REST_SECS, true);
             } else {
                 finishWorkout();
             }
         }
     }
 
-    private void startRest(int secs) {
-        isResting = true;
+    private void startRest(int secs, boolean isExerciseTransition) {
         binding.exerciseLayout.setVisibility(View.GONE);
         binding.restLayout.setVisibility(View.VISIBLE);
+
+        String nextLabel = "";
+        if (isExerciseTransition && currentIndex < exercises.size()) {
+            nextLabel = "Next: " + exercises.get(currentIndex).exercise.name;
+        } else if (!isExerciseTransition && currentIndex < exercises.size()) {
+            ExerciseWithDetails ewd = exercises.get(currentIndex);
+            nextLabel = "Set " + currentSet + " of " + ewd.workoutExercise.sets + " — " + ewd.exercise.name;
+        }
+        binding.tvNextUp.setText(nextLabel);
         binding.tvRestCountdown.setText(secs + "s");
         binding.restProgressBar.setMax(secs);
         binding.restProgressBar.setProgress(secs);
+
         if (restTimer != null) restTimer.cancel();
         restTimer = new CountDownTimer(secs * 1000L, 1000) {
             @Override
@@ -186,7 +231,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     private void updateProgress() {
         if (exercises == null) return;
         int total = exercises.size();
-        binding.tvProgressLabel.setText(currentIndex + " / " + total + " exercises");
+        binding.tvProgressLabel.setText(currentIndex + " / " + total);
         binding.linearProgress.setMax(total);
         binding.linearProgress.setProgress(currentIndex);
     }
@@ -194,7 +239,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     private void finishWorkout() {
         binding.chronometer.stop();
         int durationSecs = (int)((SystemClock.elapsedRealtime() - workoutStart) / 1000);
-        int calories = exercises != null ? exercises.size() * 8 : 0;
+        int calories = exercises != null ? exercises.size() * 10 : 0;
 
         WorkoutHistory history = new WorkoutHistory(0, planId, planName,
                 System.currentTimeMillis(), durationSecs, calories, bandLevel);
@@ -206,6 +251,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         intent.putExtra(WorkoutCompleteActivity.EXTRA_CALORIES, calories);
         intent.putExtra(WorkoutCompleteActivity.EXTRA_EXERCISES_DONE, exercises != null ? exercises.size() : 0);
         intent.putExtra(WorkoutCompleteActivity.EXTRA_WORKOUT_NAME, planName);
+        intent.putExtra(WorkoutCompleteActivity.EXTRA_TOTAL_REPS, totalReps);
         startActivity(intent);
         finish();
     }

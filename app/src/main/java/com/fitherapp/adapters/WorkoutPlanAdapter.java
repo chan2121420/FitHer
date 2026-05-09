@@ -23,8 +23,7 @@ public class WorkoutPlanAdapter extends ListAdapter<WorkoutPlan, WorkoutPlanAdap
         this.listener = listener;
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(ItemWorkoutPlanBinding.inflate(
                 LayoutInflater.from(parent.getContext()), parent, false));
@@ -38,10 +37,7 @@ public class WorkoutPlanAdapter extends ListAdapter<WorkoutPlan, WorkoutPlanAdap
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ItemWorkoutPlanBinding b;
 
-        public ViewHolder(ItemWorkoutPlanBinding b) {
-            super(b.getRoot());
-            this.b = b;
-        }
+        public ViewHolder(ItemWorkoutPlanBinding b) { super(b.getRoot()); this.b = b; }
 
         public void bind(WorkoutPlan plan, OnPlanClickListener listener) {
             b.tvPlanName.setText(plan.name);
@@ -50,27 +46,48 @@ public class WorkoutPlanAdapter extends ListAdapter<WorkoutPlan, WorkoutPlanAdap
             b.tvMeta.setText(plan.estimatedMins + " min  ·  ~" + plan.estimatedCalories + " kcal");
             b.tvCategory.setText(plan.category);
 
-            int color;
-            switch (plan.category) {
-                case "GLUTES": color = 0xFF6A1B9A; break;
-                case "LEGS":   color = 0xFF1565C0; break;
-                case "ABS":    color = 0xFFB71C1C; break;
-                case "ARMS":   color = 0xFF2E7D32; break;
-                case "BACK":   color = 0xFF4E342E; break;
-                default:       color = 0xFF37474F; break;
-            }
+            String equipment = plan.equipment != null ? plan.equipment : "NONE";
+            String equipIcon = equipment.equals("BANDS") ? "🔴 Bands" : equipment.equals("DUMBBELLS") ? "🏋️ Weights" : "🤸 Bodyweight";
+            b.tvEquipment.setText(equipIcon);
+
+            String days = plan.daysPerWeek > 0 ? plan.daysPerWeek + "x/week" : "";
+            b.tvDaysPerWeek.setText(days);
+
+            int exCount = plan.exerciseCount;
+            b.tvExerciseCount.setText(exCount > 0 ? exCount + " exercises" : "");
+
+            int color = getCategoryColor(plan.category);
             b.viewStripe.setBackgroundColor(color);
             b.tvCategory.setBackgroundColor(color);
+
+            // Difficulty badge color
+            int diffColor;
+            switch (plan.difficulty) {
+                case "BEGINNER": diffColor = 0xFF2E7D32; break;
+                case "ADVANCED": diffColor = 0xFFB71C1C; break;
+                default: diffColor = 0xFFE65100; break;
+            }
+            b.tvDifficulty.setTextColor(diffColor);
 
             b.btnStart.setOnClickListener(v -> listener.onStart(plan));
             b.getRoot().setOnClickListener(v -> listener.onPreview(plan));
         }
+
+        private int getCategoryColor(String cat) {
+            if (cat == null) return 0xFF37474F;
+            switch (cat) {
+                case "GLUTES": return 0xFF6A1B9A;
+                case "LEGS":   return 0xFF1565C0;
+                case "ABS":    return 0xFFB71C1C;
+                case "ARMS":   return 0xFF2E7D32;
+                case "BACK":   return 0xFF4E342E;
+                default:       return 0xFF37474F;
+            }
+        }
     }
 
     private static final DiffUtil.ItemCallback<WorkoutPlan> DIFF = new DiffUtil.ItemCallback<WorkoutPlan>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull WorkoutPlan a, @NonNull WorkoutPlan b) { return a.id == b.id; }
-        @Override
-        public boolean areContentsTheSame(@NonNull WorkoutPlan a, @NonNull WorkoutPlan b) { return a.name.equals(b.name); }
+        @Override public boolean areItemsTheSame(@NonNull WorkoutPlan a, @NonNull WorkoutPlan b) { return a.id == b.id; }
+        @Override public boolean areContentsTheSame(@NonNull WorkoutPlan a, @NonNull WorkoutPlan b) { return a.name.equals(b.name); }
     };
 }

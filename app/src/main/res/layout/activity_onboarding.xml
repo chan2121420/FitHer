@@ -10,66 +10,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="28dp">
+        android:padding="24dp">
 
-        <View android:layout_width="1dp" android:layout_height="48dp" />
+        <View android:layout_width="1dp" android:layout_height="40dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome to"
-            android:textSize="18sp"
-            android:textColor="?attr/colorOnSurface"
-            android:alpha="0.7" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Welcome to" android:textSize="16sp"
+            android:textColor="?attr/colorOnSurface" android:alpha="0.6" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FitHer ✨"
-            android:textSize="42sp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorPrimary"
-            android:layout_marginBottom="8dp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="FitHer ✨" android:textSize="40sp" android:textStyle="bold"
+            android:textColor="?attr/colorPrimary" android:layout_marginBottom="6dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="Let's personalise your fitness journey"
-            android:textSize="15sp"
-            android:textColor="?attr/colorOnSurface"
-            android:alpha="0.6"
-            android:layout_marginBottom="36dp" />
+            android:textSize="14sp" android:textColor="?attr/colorOnSurface" android:alpha="0.6"
+            android:layout_marginBottom="28dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Your name"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="24dp">
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="Your name" style="@style/FitHer.TextInput" android:layout_marginBottom="22dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:imeOptions="actionNext" />
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:inputType="textPersonName" android:imeOptions="actionNext" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PRIMARY GOAL"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.1"
-            android:textColor="?attr/colorPrimary"
-            android:layout_marginBottom="12dp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="PRIMARY GOAL" style="@style/FitHer.SectionTitle" android:layout_marginBottom="10dp" />
 
-        <RadioGroup
-            android:id="@+id/rgGoal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="24dp">
+        <RadioGroup android:id="@+id/rgGoal" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginBottom="22dp">
             <RadioButton android:id="@+id/rbGoalGlutes" android:layout_width="match_parent"
                 android:layout_height="48dp" android:text="🍑  Grow glutes" android:checked="true"
                 android:buttonTint="?attr/colorPrimary" />
@@ -84,22 +55,11 @@
                 android:buttonTint="?attr/colorPrimary" />
         </RadioGroup>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FITNESS LEVEL"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.1"
-            android:textColor="?attr/colorPrimary"
-            android:layout_marginBottom="12dp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="FITNESS LEVEL" style="@style/FitHer.SectionTitle" android:layout_marginBottom="10dp" />
 
-        <RadioGroup
-            android:id="@+id/rgLevel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="36dp">
+        <RadioGroup android:id="@+id/rgLevel" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginBottom="32dp">
             <RadioButton android:id="@+id/rbLevelBeginner" android:layout_width="match_parent"
                 android:layout_height="48dp" android:text="🌱  Beginner" android:checked="true"
                 android:buttonTint="?attr/colorPrimary" />
@@ -113,10 +73,8 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnGetStarted"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Let's Go!"
+            android:layout_width="match_parent" android:layout_height="54dp"
+            android:text="Let's Go! 💪"
             style="@style/FitHer.Button.Primary" />
-
     </LinearLayout>
 </ScrollView>

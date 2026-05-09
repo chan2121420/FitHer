@@ -7,7 +7,6 @@ import android.content.Intent;
 import java.util.Calendar;
 
 public class ReminderScheduler {
-
     public static void scheduleDaily(Context context) {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderReceiver.class);

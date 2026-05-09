@@ -3,12 +3,13 @@
     <string name="app_name">FitHer</string>
     <string name="nav_home">Home</string>
     <string name="nav_workouts">Workouts</string>
+    <string name="nav_library">Library</string>
     <string name="nav_progress">Progress</string>
     <string name="nav_profile">Profile</string>
     <string name="start_workout">Start</string>
-    <string name="complete">Completed</string>
+    <string name="complete">Completed ✓</string>
     <string name="skip">Skip</string>
-    <string name="get_started">Get Started</string>
+    <string name="get_started">Let\'s Go!</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="no_data">No data yet. Start tracking!</string>

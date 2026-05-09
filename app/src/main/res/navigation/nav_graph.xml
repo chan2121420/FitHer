@@ -12,6 +12,10 @@
         android:name="com.fitherapp.fragments.WorkoutsFragment"
         android:label="Workouts" />
 
+    <fragment android:id="@+id/exerciseLibraryFragment"
+        android:name="com.fitherapp.fragments.ExerciseLibraryFragment"
+        android:label="Library" />
+
     <fragment android:id="@+id/progressFragment"
         android:name="com.fitherapp.fragments.ProgressFragment"
         android:label="Progress" />

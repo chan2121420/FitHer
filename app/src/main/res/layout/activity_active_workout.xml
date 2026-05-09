@@ -6,13 +6,17 @@
     android:layout_height="match_parent"
     android:background="?android:attr/colorBackground">
 
+    <!-- TOP BAR -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
         android:background="@drawable/bg_header_gradient"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
@@ -32,8 +36,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:textColor="@color/white"
-            android:textSize="13sp"
+            android:textColor="#CCffffff"
+            android:textSize="12sp"
             android:gravity="center"
             android:maxLines="1"
             android:ellipsize="end" />
@@ -49,12 +53,13 @@
             app:rippleColor="#40FFFFFF" />
     </LinearLayout>
 
+    <!-- PROGRESS BAR -->
     <ProgressBar
         android:id="@+id/linearProgress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
-        android:layout_height="6dp"
-        android:progressTint="?attr/colorPrimary"
+        android:layout_height="5dp"
+        android:progressTint="?attr/colorSecondary"
         android:progressBackgroundTint="@color/gray_light"
         app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,11 +72,12 @@
         android:textSize="11sp"
         android:textColor="?attr/colorOnSurface"
         android:alpha="0.5"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintTop_toBottomOf="@id/linearProgress"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- EXERCISE LAYOUT -->
     <ScrollView
         android:id="@+id/exerciseLayout"
         android:layout_width="0dp"
@@ -85,31 +91,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/tvExerciseName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="?attr/colorOnSurface"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="2dp" />
 
             <TextView
                 android:id="@+id/tvMuscleTarget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="?attr/colorPrimary"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="16dp" />
 
+            <!-- Reps/Time display -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="8dp">
 
                 <ProgressBar
                     android:id="@+id/progressCircular"
@@ -126,7 +133,7 @@
                     android:id="@+id/tvRepsOrTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="56sp"
+                    android:textSize="52sp"
                     android:textStyle="bold"
                     android:textColor="?attr/colorPrimary" />
             </LinearLayout>
@@ -135,46 +142,74 @@
                 android:id="@+id/tvSetCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textColor="?attr/colorOnSurface"
                 android:alpha="0.6"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="12dp" />
 
+            <!-- Coach note -->
+            <TextView
+                android:id="@+id/tvCoachNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_coach_note"
+                android:padding="12dp"
+                android:textSize="13sp"
+                android:textColor="?attr/colorPrimary"
+                android:lineSpacingMultiplier="1.4"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <!-- Breathing cue -->
+            <TextView
+                android:id="@+id/tvBreathingCue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_info_chip"
+                android:padding="10dp"
+                android:textSize="12sp"
+                android:textColor="?attr/colorOnSurface"
+                android:alpha="0.8"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <!-- Bilateral note -->
             <TextView
                 android:id="@+id/tvBilateralNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_info_chip"
-                android:padding="12dp"
+                android:padding="10dp"
                 android:textSize="13sp"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
-                android:text="Do both left and right sides"
-                android:layout_marginBottom="10dp"
+                android:text="↔ Do both left and right sides"
+                android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
+            <!-- Band note -->
             <TextView
                 android:id="@+id/tvBandNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_info_chip"
-                android:padding="12dp"
+                android:padding="10dp"
                 android:textSize="13sp"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="12dp"
                 android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HOW TO DO IT"
-                android:textSize="10sp"
-                android:letterSpacing="0.12"
+                android:text="STEP 1"
+                android:textSize="9sp"
+                android:letterSpacing="0.14"
                 android:textColor="?attr/colorOnSurface"
-                android:alpha="0.5"
+                android:alpha="0.4"
                 android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="4dp" />
 
             <TextView
                 android:id="@+id/tvInstructions"
@@ -182,17 +217,28 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textColor="?attr/colorOnSurface"
-                android:lineSpacingMultiplier="1.6" />
+                android:alpha="0.8"
+                android:lineSpacingMultiplier="1.5"
+                android:layout_marginBottom="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTutorial"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="📖 Full Tutorial"
+                style="@style/FitHer.Button.Outline"
+                android:textSize="13sp" />
         </LinearLayout>
     </ScrollView>
 
+    <!-- REST LAYOUT -->
     <LinearLayout
         android:id="@+id/restLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="32dp"
+        android:padding="24dp"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/tvProgressLabel"
         app:layout_constraintBottom_toTopOf="@id/bottomActions"
@@ -203,22 +249,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="REST"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:letterSpacing="0.15"
             android:textColor="?attr/colorOnSurface"
             android:alpha="0.5"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="12dp" />
 
         <TextView
             android:id="@+id/tvRestCountdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="30s"
-            android:textSize="80sp"
+            android:textSize="72sp"
             android:textStyle="bold"
             android:textColor="?attr/colorPrimary"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="20dp" />
 
         <ProgressBar
             android:id="@+id/restProgressBar"
@@ -227,22 +273,33 @@
             android:layout_height="8dp"
             android:progressTint="?attr/colorPrimary"
             android:progressBackgroundTint="@color/gray_light"
-            android:layout_marginBottom="32dp" />
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:id="@+id/tvNextUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurface"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"
+            android:alpha="0.7" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRestSkip"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
-            android:text="Skip Rest"
+            android:text="Skip Rest →"
             style="@style/FitHer.Button.Outline" />
     </LinearLayout>
 
+    <!-- BOTTOM ACTIONS -->
     <LinearLayout
         android:id="@+id/bottomActions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="12dp"
         android:background="?attr/colorSurface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -251,7 +308,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSkip"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
             android:text="Skip"
@@ -260,10 +317,9 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnComplete"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="50dp"
             android:layout_weight="2"
-            android:text="Completed"
+            android:text="Completed ✓"
             style="@style/FitHer.Button.Primary" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

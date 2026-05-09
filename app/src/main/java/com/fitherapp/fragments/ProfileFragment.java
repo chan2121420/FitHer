@@ -11,11 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.fitherapp.databinding.FragmentProfileBinding;
 import com.fitherapp.models.User;
 import com.fitherapp.viewmodels.MainViewModel;
-
 import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileFragment extends Fragment {
-
     private FragmentProfileBinding binding;
     private MainViewModel viewModel;
 
@@ -51,24 +49,18 @@ public class ProfileFragment extends Fragment {
         binding.btnSaveProfile.setOnClickListener(v -> {
             String name = binding.etProfileName.getText().toString().trim();
             if (name.isEmpty()) { binding.etProfileName.setError("Required"); return; }
-
             prefs.edit()
                     .putString("user_name", name)
                     .putString("user_goal", binding.etProfileGoal.getText().toString())
                     .putString("user_level", binding.etProfileLevel.getText().toString())
                     .apply();
-
             User user = new User("", name,
                     binding.etProfileLevel.getText().toString(),
                     binding.etProfileGoal.getText().toString());
             viewModel.saveUser(user);
-            Toast.makeText(requireContext(), "Profile saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Profile saved! ✓", Toast.LENGTH_SHORT).show();
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+    @Override public void onDestroyView() { super.onDestroyView(); binding = null; }
 }

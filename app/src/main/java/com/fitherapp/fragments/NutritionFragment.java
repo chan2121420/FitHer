@@ -8,12 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.fitherapp.databinding.FragmentNutritionBinding;
 import com.fitherapp.models.NutritionLog;
-import com.fitherapp.viewmodels.WorkoutViewModel;
+import com.fitherapp.viewmodels.MainViewModel;
 
 public class NutritionFragment extends Fragment {
-
     private FragmentNutritionBinding binding;
-    private WorkoutViewModel viewModel;
+    private MainViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,19 +23,13 @@ public class NutritionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(requireActivity()).get(WorkoutViewModel.class);
-
+        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         observeLogs();
 
         binding.btnLogNutrition.setOnClickListener(v -> saveLog());
-
         binding.switchMassGainer.setOnCheckedChangeListener((btn, checked) -> {
             binding.layoutMassGainerAmount.setVisibility(checked ? View.VISIBLE : View.GONE);
-            if (checked) {
-                binding.tvMassGainerWarning.setVisibility(View.VISIBLE);
-            } else {
-                binding.tvMassGainerWarning.setVisibility(View.GONE);
-            }
+            binding.tvMassGainerWarning.setVisibility(checked ? View.VISIBLE : View.GONE);
         });
     }
 
@@ -45,6 +38,8 @@ public class NutritionFragment extends Fragment {
             NutritionLog log = new NutritionLog();
             log.dateRecorded = System.currentTimeMillis();
             log.proteinG = parseFloat(binding.etProtein.getText().toString());
+            log.carbsG = parseFloat(binding.etCarbs.getText().toString());
+            log.fatG = parseFloat(binding.etFat.getText().toString());
             log.caloriesTotal = parseFloat(binding.etCalories.getText().toString());
             log.waterMl = parseFloat(binding.etWater.getText().toString());
             log.massGainerTaken = binding.switchMassGainer.isChecked();
@@ -54,15 +49,15 @@ public class NutritionFragment extends Fragment {
 
             if (log.massGainerServings > 1.5f) {
                 Toast.makeText(requireContext(),
-                        "Warning: More than 1 serving may cause fat gain. Recommended: 1 serving post-workout only.",
+                        "⚠ More than 1 serving may cause fat gain. Keep it to 1 post-workout.",
                         Toast.LENGTH_LONG).show();
             }
 
             viewModel.saveNutritionLog(log);
-            Toast.makeText(requireContext(), "Nutrition logged!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Nutrition logged! ✓", Toast.LENGTH_SHORT).show();
             clearForm();
         } catch (Exception e) {
-            Toast.makeText(requireContext(), "Please check your entries", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Check your entries", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -72,9 +67,9 @@ public class NutritionFragment extends Fragment {
                 NutritionLog latest = logs.get(0);
                 binding.tvLatestProtein.setText(latest.proteinG + "g protein");
                 binding.tvLatestCalories.setText((int)latest.caloriesTotal + " kcal");
-                binding.tvLatestWater.setText((int)latest.waterMl + " ml water");
+                binding.tvLatestWater.setText((int)latest.waterMl + " ml");
                 binding.tvMassGainerStatus.setText(latest.massGainerTaken
-                        ? "Mass gainer: " + latest.massGainerServings + " serving(s)"
+                        ? "Mass gainer: " + latest.massGainerServings + " serving(s) ✓"
                         : "Mass gainer: not taken");
             }
         });
@@ -82,6 +77,8 @@ public class NutritionFragment extends Fragment {
 
     private void clearForm() {
         binding.etProtein.setText("");
+        binding.etCarbs.setText("");
+        binding.etFat.setText("");
         binding.etCalories.setText("");
         binding.etWater.setText("");
         binding.etMealNotes.setText("");
@@ -93,9 +90,5 @@ public class NutritionFragment extends Fragment {
         return Float.parseFloat(s);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+    @Override public void onDestroyView() { super.onDestroyView(); binding = null; }
 }

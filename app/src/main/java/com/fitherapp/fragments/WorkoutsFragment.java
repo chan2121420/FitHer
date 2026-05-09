@@ -3,12 +3,12 @@ package com.fitherapp.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
+import android.widget.SearchView;
 import androidx.annotation.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.fitherapp.R;
 import com.fitherapp.activities.ActiveWorkoutActivity;
 import com.fitherapp.activities.WorkoutBuilderActivity;
 import com.fitherapp.adapters.WorkoutPlanAdapter;
@@ -17,7 +17,6 @@ import com.fitherapp.models.WorkoutPlan;
 import com.fitherapp.viewmodels.MainViewModel;
 
 public class WorkoutsFragment extends Fragment {
-
     private FragmentWorkoutsBinding binding;
     private MainViewModel viewModel;
     private WorkoutPlanAdapter adapter;
@@ -34,10 +33,8 @@ public class WorkoutsFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
         adapter = new WorkoutPlanAdapter(new WorkoutPlanAdapter.OnPlanClickListener() {
-            @Override
-            public void onStart(WorkoutPlan plan) { showBandDialog(plan); }
-            @Override
-            public void onPreview(WorkoutPlan plan) {
+            @Override public void onStart(WorkoutPlan plan) { showBandDialog(plan); }
+            @Override public void onPreview(WorkoutPlan plan) {
                 ExerciseDetailBottomSheet.newInstance(plan.id, plan.name)
                         .show(getParentFragmentManager(), "detail");
             }
@@ -58,9 +55,12 @@ public class WorkoutsFragment extends Fragment {
 
     private void setupCategoryFilter() {
         String[] cats = {"ALL", "GLUTES", "LEGS", "ABS", "ARMS", "BACK", "FULL_BODY"};
-        for (String cat : cats) {
+        String[] labels = {"All", "Glutes", "Legs", "Abs", "Arms", "Back", "Full Body"};
+        binding.chipGroupFilter.removeAllViews();
+        for (int i = 0; i < cats.length; i++) {
+            final String cat = cats[i];
             com.google.android.material.chip.Chip chip = new com.google.android.material.chip.Chip(requireContext());
-            chip.setText(cat.equals("ALL") ? "All" : cap(cat));
+            chip.setText(labels[i]);
             chip.setCheckable(true);
             chip.setChecked(cat.equals("ALL"));
             chip.setOnClickListener(v -> {
@@ -78,14 +78,8 @@ public class WorkoutsFragment extends Fragment {
         }
     }
 
-    private String cap(String s) {
-        if (s == null || s.isEmpty()) return s;
-        String lower = s.toLowerCase().replace("_", " ");
-        return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
-    }
-
     private void showBandDialog(WorkoutPlan plan) {
-        String[] options = {"No band (bodyweight)", "Light resistance band", "Heavy resistance band"};
+        String[] options = {"🤸 No band (bodyweight)", "🔴 Light band", "🟠 Heavy band"};
         String[] levels = {"NONE", "LIGHT", "HEAVY"};
         new AlertDialog.Builder(requireContext())
                 .setTitle("Equipment for today?")
@@ -95,13 +89,8 @@ public class WorkoutsFragment extends Fragment {
                     intent.putExtra(ActiveWorkoutActivity.EXTRA_PLAN_NAME, plan.name);
                     intent.putExtra(ActiveWorkoutActivity.EXTRA_BAND_LEVEL, levels[which]);
                     startActivity(intent);
-                })
-                .show();
+                }).show();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+    @Override public void onDestroyView() { super.onDestroyView(); binding = null; }
 }

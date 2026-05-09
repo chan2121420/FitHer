@@ -3,219 +3,146 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="?android:attr/colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nutrition"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/gray_dark"
-            android:paddingTop="12dp"
-            android:paddingBottom="4dp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Nutrition" android:textSize="26sp" android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface" android:paddingTop="8dp" android:layout_marginBottom="4dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Target: 100–120g protein · 1 mass gainer serving post-workout"
-            android:textSize="12sp"
-            android:textColor="@color/teal_primary"
-            android:layout_marginBottom="20dp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Target: 100–120g protein · 2000–2400 kcal"
+            android:textSize="12sp" android:textColor="?attr/colorPrimary" android:layout_marginBottom="16dp" />
 
         <!-- Latest log card -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LATEST LOG"
-            android:textSize="11sp"
-            android:letterSpacing="0.1"
-            android:textStyle="bold"
-            android:textColor="@color/gray_mid"
-            android:layout_marginBottom="10dp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="LATEST LOG" style="@style/FitHer.SectionTitle" android:layout_marginBottom="8dp" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            style="@style/FitHer.Card">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
+        <androidx.cardview.widget.CardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginBottom="20dp" style="@style/FitHer.Card">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="14dp">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:layout_marginBottom="8dp">
+                    android:orientation="horizontal" android:layout_marginBottom="6dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="Protein"
-                        android:textSize="13sp" android:textColor="@color/gray_mid" />
+                        android:layout_weight="1" android:text="Protein" android:textSize="13sp" android:textColor="?attr/colorOnSurface" android:alpha="0.6" />
                     <TextView android:id="@+id/tvLatestProtein" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="— g"
-                        android:textSize="13sp" android:textStyle="bold" android:textColor="@color/teal_primary" />
+                        android:layout_height="wrap_content" android:text="—"
+                        android:textSize="13sp" android:textStyle="bold" android:textColor="?attr/colorPrimary" />
                 </LinearLayout>
-
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:layout_marginBottom="8dp">
+                    android:orientation="horizontal" android:layout_marginBottom="6dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="Calories"
-                        android:textSize="13sp" android:textColor="@color/gray_mid" />
+                        android:layout_weight="1" android:text="Calories" android:textSize="13sp" android:textColor="?attr/colorOnSurface" android:alpha="0.6" />
                     <TextView android:id="@+id/tvLatestCalories" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="— kcal"
-                        android:textSize="13sp" android:textStyle="bold" android:textColor="@color/purple_primary" />
+                        android:layout_height="wrap_content" android:text="—"
+                        android:textSize="13sp" android:textStyle="bold" android:textColor="@color/orange_accent" />
                 </LinearLayout>
-
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:layout_marginBottom="8dp">
+                    android:orientation="horizontal" android:layout_marginBottom="6dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="Water"
-                        android:textSize="13sp" android:textColor="@color/gray_mid" />
+                        android:layout_weight="1" android:text="Water" android:textSize="13sp" android:textColor="?attr/colorOnSurface" android:alpha="0.6" />
                     <TextView android:id="@+id/tvLatestWater" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="— ml"
-                        android:textSize="13sp" android:textStyle="bold" android:textColor="@color/gray_dark" />
+                        android:layout_height="wrap_content" android:text="—"
+                        android:textSize="13sp" android:textStyle="bold" android:textColor="@color/teal_accent" />
                 </LinearLayout>
-
-                <TextView android:id="@+id/tvMassGainerStatus"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Mass gainer: not logged"
-                    android:textSize="13sp" android:textColor="@color/gray_mid" />
+                <TextView android:id="@+id/tvMassGainerStatus" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Mass gainer: not logged"
+                    android:textSize="12sp" android:textColor="?attr/colorOnSurface" android:alpha="0.5" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Log form -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LOG TODAY"
-            android:textSize="11sp"
-            android:letterSpacing="0.1"
-            android:textStyle="bold"
-            android:textColor="@color/gray_mid"
-            android:layout_marginBottom="14dp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="LOG TODAY" style="@style/FitHer.SectionTitle" android:layout_marginBottom="12dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Protein (g)"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="12dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etProtein"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:imeOptions="actionNext" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6dp"
+                android:hint="Protein (g)" style="@style/FitHer.TextInput" android:layout_marginBottom="10dp">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/etProtein"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6dp"
+                android:hint="Carbs (g)" style="@style/FitHer.TextInput" android:layout_marginBottom="10dp">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/etCarbs"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6dp"
+                android:hint="Fat (g)" style="@style/FitHer.TextInput" android:layout_marginBottom="10dp">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/etFat"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6dp"
+                android:hint="Calories (kcal)" style="@style/FitHer.TextInput" android:layout_marginBottom="10dp">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/etCalories"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="Water (ml)"
+            style="@style/FitHer.TextInput" android:layout_marginBottom="14dp">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/etWater"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Total calories (kcal)"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="12dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCalories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:imeOptions="actionNext" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Water (ml)"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="16dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etWater"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:imeOptions="actionNext" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Mass gainer toggle -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Mass gainer taken today?"
-                android:textSize="14sp"
-                android:textColor="@color/gray_dark" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="6dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="Mass gainer taken?"
+                android:textSize="14sp" android:textColor="?attr/colorOnSurface" />
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switchMassGainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="wrap_content" android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layoutMassGainerAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Number of servings (recommended: 1)"
-                style="@style/FitHer.TextInput"
-                android:layout_marginBottom="8dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etMassGainerServings"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:text="1" />
+        <LinearLayout android:id="@+id/layoutMassGainerAmount" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+            <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:hint="Servings (recommended: 1)"
+                style="@style/FitHer.TextInput" android:layout_marginBottom="8dp">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/etMassGainerServings"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" android:text="1" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tvMassGainerWarning"
-                android:layout_width="match_parent"
+            <TextView android:id="@+id/tvMassGainerWarning" android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="⚠ Max 1 serving per day on training days only. More = fat gain."
-                android:textSize="12sp"
-                android:textColor="@color/coral_primary"
-                android:background="@color/coral_light"
-                android:padding="10dp"
-                android:layout_marginBottom="12dp"
-                android:visibility="gone" />
+                android:text="⚠ Max 1 serving per day on training days only."
+                android:textSize="12sp" android:textColor="@color/coral_primary"
+                android:background="@color/coral_light" android:padding="10dp"
+                android:layout_marginBottom="10dp" android:visibility="gone" />
         </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Meal notes (optional)"
-            style="@style/FitHer.TextInput"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="8dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etMealNotes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:minLines="2" />
+        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="Meal notes (optional)"
+            style="@style/FitHer.TextInput" android:layout_marginBottom="16dp" android:layout_marginTop="8dp">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/etMealNotes"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:inputType="textMultiLine" android:minLines="2" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogNutrition"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_width="match_parent" android:layout_height="52dp"
             android:text="Log Today's Nutrition"
             style="@style/FitHer.Button.Primary" />
-
     </LinearLayout>
 </ScrollView>

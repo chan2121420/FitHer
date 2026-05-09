@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProgressFragment extends Fragment {
-
     private FragmentProgressBinding binding;
     private MainViewModel viewModel;
 
@@ -60,14 +59,11 @@ public class ProgressFragment extends Fragment {
 
     private void observeData() {
         viewModel.getAllHistory().observe(getViewLifecycleOwner(), sessions ->
-                binding.tvTotalWorkouts.setText(String.valueOf(sessions != null ? sessions.size() : 0)));
-
+                binding.tvTotalWorkouts.setText(sessions != null ? String.valueOf(sessions.size()) : "0"));
         viewModel.getCurrentStreak().observe(getViewLifecycleOwner(), streak ->
                 binding.tvCurrentStreak.setText(streak + " days"));
-
         viewModel.getTotalCaloriesWeek().observe(getViewLifecycleOwner(), cal ->
                 binding.tvWeekCalories.setText(cal + " kcal"));
-
         viewModel.getAllMeasurements().observe(getViewLifecycleOwner(), measurements -> {
             if (measurements == null || measurements.isEmpty()) return;
             updateMeasurementCharts(measurements);
@@ -109,9 +105,5 @@ public class ProgressFragment extends Fragment {
         binding.tvLatestWeight.setText(m.weightKg > 0 ? m.weightKg + " kg" : "—");
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+    @Override public void onDestroyView() { super.onDestroyView(); binding = null; }
 }

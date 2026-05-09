@@ -12,7 +12,6 @@ import com.fitherapp.R;
 import com.fitherapp.activities.MainActivity;
 
 public class ReminderReceiver extends BroadcastReceiver {
-
     public static final String CHANNEL_ID = "fither_reminders";
     public static final int NOTIF_ID = 1001;
 
@@ -23,16 +22,14 @@ public class ReminderReceiver extends BroadcastReceiver {
         openApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pi = PendingIntent.getActivity(context, 0, openApp,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-
         String[] messages = {
                 "Time to train! Your body won't change itself. 💪",
-                "Today's session is waiting for you. Let's go!",
+                "Today's session is waiting for you. Let's go! 🔥",
                 "Consistency builds the body you want. Start now.",
-                "Don't break your streak! Open FitHer.",
+                "Don't break your streak! Open FitHer. 🏆",
                 "One session closer to your goal. You've got this!"
         };
         String msg = messages[(int)(Math.random() * messages.length)];
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle("FitHer — Time to Train")
@@ -40,7 +37,6 @@ public class ReminderReceiver extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pi)
                 .setAutoCancel(true);
-
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.notify(NOTIF_ID, builder.build());
     }

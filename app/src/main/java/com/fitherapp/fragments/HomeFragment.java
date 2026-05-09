@@ -14,12 +14,10 @@ import com.fitherapp.adapters.WorkoutPlanAdapter;
 import com.fitherapp.databinding.FragmentHomeBinding;
 import com.fitherapp.models.WorkoutPlan;
 import com.fitherapp.viewmodels.MainViewModel;
-import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
-
     private FragmentHomeBinding binding;
     private MainViewModel viewModel;
     private WorkoutPlanAdapter planAdapter;
@@ -37,20 +35,22 @@ public class HomeFragment extends Fragment {
 
         SharedPreferences prefs = requireActivity().getSharedPreferences("fither_prefs", MODE_PRIVATE);
         String name = prefs.getString("user_name", "Warrior");
-        binding.tvGreeting.setText("Hey, " + name + "! 💪");
+        String goal = prefs.getString("user_goal", "GLUTES");
+
+        String greeting = getGreeting();
+        binding.tvGreeting.setText(greeting + ", " + name + "!");
+        binding.tvGoalTag.setText("Goal: " + formatGoal(goal));
 
         viewModel.getCurrentStreak().observe(getViewLifecycleOwner(), streak ->
-                binding.tvStreak.setText(streak + " day streak 🔥"));
+                binding.tvStreak.setText(streak + "\nday streak"));
         viewModel.getTotalCaloriesWeek().observe(getViewLifecycleOwner(), cal ->
-                binding.tvCalories.setText(cal + " kcal this week"));
+                binding.tvCalories.setText(cal + "\nkcal/week"));
         viewModel.getTotalWorkouts().observe(getViewLifecycleOwner(), total ->
-                binding.tvTotalWorkouts.setText(total + " workouts total"));
+                binding.tvTotalWorkouts.setText(total + "\ntotal"));
 
         planAdapter = new WorkoutPlanAdapter(new WorkoutPlanAdapter.OnPlanClickListener() {
-            @Override
-            public void onStart(WorkoutPlan plan) { showBandDialog(plan); }
-            @Override
-            public void onPreview(WorkoutPlan plan) {
+            @Override public void onStart(WorkoutPlan plan) { showBandDialog(plan); }
+            @Override public void onPreview(WorkoutPlan plan) {
                 ExerciseDetailBottomSheet.newInstance(plan.id, plan.name)
                         .show(getParentFragmentManager(), "preview");
             }
@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
 
         viewModel.getAllWorkoutPlans().observe(getViewLifecycleOwner(), plans -> {
             if (plans != null && !plans.isEmpty()) {
-                planAdapter.submitList(plans.subList(0, Math.min(4, plans.size())));
+                planAdapter.submitList(plans.subList(0, Math.min(6, plans.size())));
             }
         });
 
@@ -70,12 +70,29 @@ public class HomeFragment extends Fragment {
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(com.fitherapp.R.id.nav_host_fragment, new WorkoutsFragment())
-                        .addToBackStack(null)
-                        .commit());
+                        .addToBackStack(null).commit());
+    }
+
+    private String getGreeting() {
+        int hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY);
+        if (hour < 12) return "Good morning";
+        if (hour < 17) return "Good afternoon";
+        return "Good evening";
+    }
+
+    private String formatGoal(String goal) {
+        if (goal == null) return "General fitness";
+        switch (goal) {
+            case "GLUTES": return "Grow glutes 🍑";
+            case "LEGS": return "Tone legs 🦵";
+            case "FULL_BODY": return "Full body sculpt 💪";
+            case "WEIGHT_LOSS": return "Weight loss 🔥";
+            default: return goal;
+        }
     }
 
     private void showBandDialog(WorkoutPlan plan) {
-        String[] options = {"No band (bodyweight)", "Light resistance band", "Heavy resistance band"};
+        String[] options = {"🤸 No band (bodyweight)", "🔴 Light resistance band", "🟠 Heavy resistance band"};
         String[] levels = {"NONE", "LIGHT", "HEAVY"};
         new AlertDialog.Builder(requireContext())
                 .setTitle("Equipment for today?")
@@ -85,13 +102,8 @@ public class HomeFragment extends Fragment {
                     intent.putExtra(ActiveWorkoutActivity.EXTRA_PLAN_NAME, plan.name);
                     intent.putExtra(ActiveWorkoutActivity.EXTRA_BAND_LEVEL, levels[which]);
                     startActivity(intent);
-                })
-                .show();
+                }).show();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+    @Override public void onDestroyView() { super.onDestroyView(); binding = null; }
 }

@@ -1,34 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Purple Brand -->
     <color name="purple_primary">#6A1B9A</color>
     <color name="purple_dark">#4A148C</color>
     <color name="purple_medium">#8E24AA</color>
     <color name="purple_light">#CE93D8</color>
     <color name="purple_surface">#F3E5F5</color>
-
-    <!-- Accent -->
     <color name="pink_accent">#E91E8C</color>
     <color name="pink_light">#FCE4EC</color>
+    <color name="teal_primary">#009688</color>
+    <color name="teal_dark">#00796B</color>
     <color name="teal_accent">#00BFA5</color>
     <color name="orange_accent">#FF6D00</color>
-
-    <!-- Neutrals -->
     <color name="gray_dark">#1C1B1F</color>
     <color name="gray_mid">#79747E</color>
     <color name="gray_light">#E7E0EC</color>
-    <color name="gray_surface">#FFFBFE</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-
     <color name="coral_primary">#FF7F50</color>
-    <color name="coral_light">#FFA07A</color>
-    <!-- Semantic -->
+    <color name="coral_light">#FFF0EA</color>
     <color name="success">#2E7D32</color>
     <color name="warning">#F57F17</color>
     <color name="error">#B71C1C</color>
-
-    <!-- Surface -->
     <color name="colorBackground">#FFFBFE</color>
     <color name="colorSurface">#FFFFFF</color>
     <color name="colorOnBackground">#1C1B1F</color>
@@ -38,17 +30,9 @@
     <color name="colorOnPrimary">#FFFFFF</color>
     <color name="colorSecondary">#E91E8C</color>
     <color name="colorOnSecondary">#FFFFFF</color>
-
-    <!-- Dark theme -->
     <color name="colorBackgroundDark">#1C1B1F</color>
     <color name="colorSurfaceDark">#2B2930</color>
     <color name="colorOnBackgroundDark">#E6E1E5</color>
-    <color name="colorOnSurfaceDark">#E6E1E5</color>
-    <color name="purple_primary_dark">#CE93D8</color>
-    <color name="teal_primary">#009688</color>
-    <color name="teal_dark">#00796B</color>
-
-    <!-- Nav -->
     <color name="nav_selected">#6A1B9A</color>
     <color name="nav_unselected">#79747E</color>
 </resources>

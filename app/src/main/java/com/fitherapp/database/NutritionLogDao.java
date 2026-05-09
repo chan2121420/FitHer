@@ -6,16 +6,11 @@ import com.fitherapp.models.NutritionLog;
 import java.util.List;
 
 @Dao
-public interface NutritionLogDao {
+interface NutritionLogDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(NutritionLog log);
-
     @Update
     void update(NutritionLog log);
-
     @Query("SELECT * FROM nutrition_logs ORDER BY dateRecorded DESC")
     LiveData<List<NutritionLog>> getAll();
-
-    @Query("SELECT * FROM nutrition_logs ORDER BY dateRecorded DESC LIMIT 1")
-    NutritionLog getLatest();
 }

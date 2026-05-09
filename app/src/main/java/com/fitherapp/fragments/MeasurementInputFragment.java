@@ -11,7 +11,6 @@ import com.fitherapp.viewmodels.MainViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class MeasurementInputFragment extends BottomSheetDialogFragment {
-
     private FragmentMeasurementInputBinding binding;
 
     @Override
@@ -38,7 +37,7 @@ public class MeasurementInputFragment extends BottomSheetDialogFragment {
                 m.bustCm = parseFloat(binding.etBust.getText().toString());
                 m.notes = binding.etNotes.getText().toString();
                 viewModel.saveMeasurement(m);
-                Toast.makeText(requireContext(), "Measurements saved!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Measurements saved! ✓", Toast.LENGTH_SHORT).show();
                 dismiss();
             } catch (Exception e) {
                 Toast.makeText(requireContext(), "Please enter valid numbers", Toast.LENGTH_SHORT).show();
@@ -52,9 +51,5 @@ public class MeasurementInputFragment extends BottomSheetDialogFragment {
         return Float.parseFloat(s);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+    @Override public void onDestroyView() { super.onDestroyView(); binding = null; }
 }
