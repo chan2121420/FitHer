@@ -9,6 +9,8 @@ public class NutritionLog {
     public int id;
     public long dateRecorded;
     public float proteinG;
+    public float carbsG;
+    public float fatG;
     public float caloriesTotal;
     public float waterMl;
     public boolean massGainerTaken;

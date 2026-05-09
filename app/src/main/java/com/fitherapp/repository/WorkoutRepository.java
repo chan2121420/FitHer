@@ -2,8 +2,24 @@ package com.fitherapp.repository;
 
 import android.app.Application;
 import androidx.lifecycle.LiveData;
-import com.fitherapp.database.*;
-import com.fitherapp.models.*;
+import com.fitherapp.database.AppDatabase;
+import com.fitherapp.database.BodyMeasurementDao;
+import com.fitherapp.database.ExerciseDao;
+import com.fitherapp.database.NutritionLogDao;
+import com.fitherapp.database.UserDao;
+import com.fitherapp.database.WorkoutDayDao;
+import com.fitherapp.database.WorkoutExerciseDao;
+import com.fitherapp.database.WorkoutHistoryDao;
+import com.fitherapp.database.WorkoutPlanDao;
+import com.fitherapp.models.BodyMeasurement;
+import com.fitherapp.models.Exercise;
+import com.fitherapp.models.ExerciseWithDetails;
+import com.fitherapp.models.NutritionLog;
+import com.fitherapp.models.User;
+import com.fitherapp.models.WorkoutDay;
+import com.fitherapp.models.WorkoutExercise;
+import com.fitherapp.models.WorkoutHistory;
+import com.fitherapp.models.WorkoutPlan;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,6 +33,7 @@ public class WorkoutRepository {
     private final BodyMeasurementDao bodyMeasurementDao;
     private final NutritionLogDao nutritionLogDao;
     private final UserDao userDao;
+    private final WorkoutDayDao workoutDayDao;
     private final ExecutorService executor;
 
     public WorkoutRepository(Application application) {
@@ -28,6 +45,7 @@ public class WorkoutRepository {
         bodyMeasurementDao = db.bodyMeasurementDao();
         nutritionLogDao = db.nutritionLogDao();
         userDao = db.userDao();
+        workoutDayDao = db.workoutDayDao();
         executor = Executors.newFixedThreadPool(4);
     }
 
@@ -40,6 +58,9 @@ public class WorkoutRepository {
     public LiveData<List<Exercise>> getExercisesByCategoryAndType(String category, String type) {
         return exerciseDao.getByCategoryAndType(category, type);
     }
+    public LiveData<List<Exercise>> searchExercises(String query) { return exerciseDao.search(query); }
+
+    public LiveData<List<WorkoutDay>> getAllWorkoutDays() { return workoutDayDao.getAllDays(); }
 
     public LiveData<List<WorkoutPlan>> getAllWorkoutPlans() { return workoutPlanDao.getAll(); }
     public LiveData<List<WorkoutPlan>> getWorkoutPlansByCategory(String category) { return workoutPlanDao.getByCategory(category); }

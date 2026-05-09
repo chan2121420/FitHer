@@ -6,7 +6,7 @@ import com.fitherapp.models.NutritionLog;
 import java.util.List;
 
 @Dao
-interface NutritionLogDao {
+public interface NutritionLogDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(NutritionLog log);
     @Update

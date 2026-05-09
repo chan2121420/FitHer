@@ -33,6 +33,7 @@
         <activity android:name=".activities.WorkoutCompleteActivity" android:exported="false" />
         <activity android:name=".activities.WorkoutBuilderActivity" android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".activities.ExerciseTutorialActivity" android:exported="false" />
 
         <receiver android:name=".utils.ReminderReceiver" android:exported="false" />
         <receiver android:name=".utils.BootReceiver" android:exported="true">

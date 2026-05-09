@@ -10,7 +10,7 @@ import com.fitherapp.R;
 import com.fitherapp.models.Exercise;
 import com.google.android.material.appbar.MaterialToolbar;
 
-public class Exercisetutorialactivity extends AppCompatActivity {
+public class ExerciseTutorialActivity extends AppCompatActivity {
 
     public static final String EXTRA_EXERCISE_NAME = "exercise_name";
     public static final String EXTRA_EXERCISE_CATEGORY = "exercise_category";
@@ -94,7 +94,7 @@ public class Exercisetutorialactivity extends AppCompatActivity {
     }
 
     public static void launch(android.app.Activity activity, Exercise ex) {
-        Intent intent = new Intent(activity, Exercisetutorialactivity.class);
+        Intent intent = new Intent(activity, ExerciseTutorialActivity.class);
         intent.putExtra(EXTRA_EXERCISE_NAME, ex.name);
         intent.putExtra(EXTRA_EXERCISE_CATEGORY, ex.category);
         intent.putExtra(EXTRA_EXERCISE_MUSCLES, ex.targetMuscles);

@@ -5,7 +5,7 @@ import androidx.room.*;
 import com.fitherapp.models.User;
 
 @Dao
-interface UserDao {
+public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(User user);
     @Update

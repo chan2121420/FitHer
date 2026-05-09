@@ -6,7 +6,7 @@ import com.fitherapp.models.BodyMeasurement;
 import java.util.List;
 
 @Dao
-interface BodyMeasurementDao {
+public interface BodyMeasurementDao {
     @Insert
     long insert(BodyMeasurement m);
     @Query("SELECT * FROM body_measurements ORDER BY dateRecorded DESC")

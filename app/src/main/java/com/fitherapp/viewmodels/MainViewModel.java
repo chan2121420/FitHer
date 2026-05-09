@@ -46,6 +46,7 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<List<Exercise>> getExercisesByCategoryAndType(String category, String type) {
         return repository.getExercisesByCategoryAndType(category, type);
     }
+    public LiveData<List<Exercise>> searchExercises(String query) { return repository.searchExercises(query); }
 
     public LiveData<List<ExerciseWithDetails>> getExercisesForPlan(int planId) {
         return repository.getExercisesForPlan(planId);
@@ -65,8 +66,8 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<BodyMeasurement> getLatestMeasurement() { return repository.getLatestMeasurement(); }
     public void saveMeasurement(BodyMeasurement m) { repository.insertMeasurement(m); }
 
-    public LiveData<List<com.fitherapp.models.NutritionLog>> getAllNutritionLogs() { return repository.getAllNutritionLogs(); }
-    public void saveNutritionLog(com.fitherapp.models.NutritionLog log) { repository.insertNutritionLog(log); }
+    public LiveData<List<NutritionLog>> getAllNutritionLogs() { return repository.getAllNutritionLogs(); }
+    public void saveNutritionLog(NutritionLog log) { repository.insertNutritionLog(log); }
 
     public LiveData<Integer> getCurrentStreak() { return currentStreak; }
     public LiveData<Integer> getTotalCaloriesWeek() { return totalCaloriesWeek; }

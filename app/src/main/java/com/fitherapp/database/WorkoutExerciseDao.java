@@ -7,7 +7,7 @@ import com.fitherapp.models.WorkoutExercise;
 import java.util.List;
 
 @Dao
-interface WorkoutExerciseDao {
+public interface WorkoutExerciseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(WorkoutExercise we);
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,6 +21,10 @@ interface WorkoutExerciseDao {
     @Transaction
     @Query("SELECT * FROM workout_exercises WHERE workoutPlanId = :planId ORDER BY orderIndex ASC")
     LiveData<List<ExerciseWithDetails>> getExercisesWithDetailsForPlan(int planId);
+
+    @Transaction
+    @Query("SELECT * FROM workout_exercises WHERE workoutPlanId = :workoutDayId ORDER BY orderIndex ASC")
+    LiveData<List<ExerciseWithDetails>> getExercisesWithDetailsForDay(int workoutDayId);
     @Query("DELETE FROM workout_exercises WHERE workoutPlanId = :planId")
     void deleteAllForPlan(int planId);
 }

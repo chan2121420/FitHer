@@ -6,7 +6,7 @@ import com.fitherapp.models.WorkoutHistory;
 import java.util.List;
 
 @Dao
-interface WorkoutHistoryDao {
+public interface WorkoutHistoryDao {
     @Insert
     long insert(WorkoutHistory history);
     @Query("SELECT * FROM workout_history ORDER BY dateCompleted DESC")

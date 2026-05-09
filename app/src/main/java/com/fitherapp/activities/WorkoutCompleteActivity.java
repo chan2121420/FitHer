@@ -12,6 +12,7 @@ public class WorkoutCompleteActivity extends AppCompatActivity {
     public static final String EXTRA_CALORIES = "calories";
     public static final String EXTRA_EXERCISES_DONE = "exercises_done";
     public static final String EXTRA_WORKOUT_NAME = "workout_name";
+    public static final String EXTRA_TOTAL_REPS = "total_reps";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class WorkoutCompleteActivity extends AppCompatActivity {
         int durationSecs = getIntent().getIntExtra(EXTRA_DURATION_SECS, 0);
         int calories = getIntent().getIntExtra(EXTRA_CALORIES, 0);
         int exercises = getIntent().getIntExtra(EXTRA_EXERCISES_DONE, 0);
+        int totalReps = getIntent().getIntExtra(EXTRA_TOTAL_REPS, 0);
         String name = getIntent().getStringExtra(EXTRA_WORKOUT_NAME);
 
         int mins = durationSecs / 60;
@@ -30,6 +32,7 @@ public class WorkoutCompleteActivity extends AppCompatActivity {
         binding.tvDuration.setText(String.format(Locale.getDefault(), "%d:%02d", mins, secs));
         binding.tvCalories.setText(String.valueOf(calories));
         binding.tvExercisesDone.setText(String.valueOf(exercises));
+        binding.tvTotalReps.setText(String.valueOf(totalReps));
         binding.tvMotivation.setText(getMotivation());
 
         binding.btnHome.setOnClickListener(v -> {

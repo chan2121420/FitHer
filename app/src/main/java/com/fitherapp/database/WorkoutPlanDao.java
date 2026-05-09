@@ -6,7 +6,7 @@ import com.fitherapp.models.WorkoutPlan;
 import java.util.List;
 
 @Dao
-interface WorkoutPlanDao {
+public interface WorkoutPlanDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(WorkoutPlan plan);
     @Insert(onConflict = OnConflictStrategy.REPLACE)

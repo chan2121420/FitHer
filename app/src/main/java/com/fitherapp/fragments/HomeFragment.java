@@ -8,7 +8,9 @@ import androidx.annotation.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import com.fitherapp.R;
 import com.fitherapp.activities.ActiveWorkoutActivity;
 import com.fitherapp.adapters.WorkoutPlanAdapter;
 import com.fitherapp.databinding.FragmentHomeBinding;
@@ -37,8 +39,7 @@ public class HomeFragment extends Fragment {
         String name = prefs.getString("user_name", "Warrior");
         String goal = prefs.getString("user_goal", "GLUTES");
 
-        String greeting = getGreeting();
-        binding.tvGreeting.setText(greeting + ", " + name + "!");
+        binding.tvGreeting.setText(getGreeting() + ", " + name + "!");
         binding.tvGoalTag.setText("Goal: " + formatGoal(goal));
 
         viewModel.getCurrentStreak().observe(getViewLifecycleOwner(), streak ->
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment {
         planAdapter = new WorkoutPlanAdapter(new WorkoutPlanAdapter.OnPlanClickListener() {
             @Override public void onStart(WorkoutPlan plan) { showBandDialog(plan); }
             @Override public void onPreview(WorkoutPlan plan) {
+                if (!isAdded()) return;
                 ExerciseDetailBottomSheet.newInstance(plan.id, plan.name)
                         .show(getParentFragmentManager(), "preview");
             }
@@ -66,11 +68,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        binding.btnSeeAll.setOnClickListener(v ->
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(com.fitherapp.R.id.nav_host_fragment, new WorkoutsFragment())
-                        .addToBackStack(null).commit());
+        // Use NavController to navigate to workouts tab — safe against state loss
+        binding.btnSeeAll.setOnClickListener(v -> {
+            if (!isAdded()) return;
+            Navigation.findNavController(v).navigate(R.id.workoutsFragment);
+        });
     }
 
     private String getGreeting() {
@@ -92,6 +94,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void showBandDialog(WorkoutPlan plan) {
+        if (!isAdded()) return;
         String[] options = {"🤸 No band (bodyweight)", "🔴 Light resistance band", "🟠 Heavy resistance band"};
         String[] levels = {"NONE", "LIGHT", "HEAVY"};
         new AlertDialog.Builder(requireContext())

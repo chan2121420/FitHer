@@ -1,6 +1,5 @@
 package com.fitherapp.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,15 +73,22 @@ public class WorkoutBuilderActivity extends AppCompatActivity {
     }
 
     private void setupPickerList() {
-        pickerAdapter = new ExercisePickerAdapter(exercise -> {
-            if (!selectedExercises.contains(exercise)) {
-                selectedExercises.add(exercise);
-                builderAdapter.submitList(new ArrayList<>(selectedExercises));
-                Toast.makeText(this, exercise.name + " added", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Already added", Toast.LENGTH_SHORT).show();
-            }
-        });
+        pickerAdapter = new ExercisePickerAdapter(
+                exercise -> {
+                    // OnPickListener
+                    if (!selectedExercises.contains(exercise)) {
+                        selectedExercises.add(exercise);
+                        builderAdapter.submitList(new ArrayList<>(selectedExercises));
+                        Toast.makeText(this, exercise.name + " added", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Already added", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                exercise -> {
+                    // OnInfoListener — open tutorial
+                    ExerciseTutorialActivity.launch(this, exercise);
+                }
+        );
         binding.rvExercisePicker.setLayoutManager(new LinearLayoutManager(this));
         binding.rvExercisePicker.setAdapter(pickerAdapter);
     }
@@ -97,9 +103,13 @@ public class WorkoutBuilderActivity extends AppCompatActivity {
             chip.setChecked(cat.equals("ALL"));
             chip.setOnClickListener(v -> {
                 if (cat.equals("ALL")) {
-                    viewModel.getAllExercises().observe(this, list -> { if (list != null) pickerAdapter.submitList(list); });
+                    viewModel.getAllExercises().observe(this, list -> {
+                        if (list != null) pickerAdapter.submitList(list);
+                    });
                 } else {
-                    viewModel.getExercisesByCategory(cat).observe(this, list -> { if (list != null) pickerAdapter.submitList(list); });
+                    viewModel.getExercisesByCategory(cat).observe(this, list -> {
+                        if (list != null) pickerAdapter.submitList(list);
+                    });
                 }
             });
             binding.chipGroupCategory.addView(chip);

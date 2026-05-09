@@ -2,7 +2,7 @@ package com.fitherapp.viewmodels;
 
 import android.app.Application;
 import androidx.lifecycle.*;
-import com.fitherapp.database.WorkoutRepository;
+import com.fitherapp.repository.WorkoutRepository;
 import com.fitherapp.models.*;
 import java.util.List;
 
@@ -32,12 +32,12 @@ public class WorkoutViewModel extends AndroidViewModel {
         return repository.getExercisesByCategory(category);
     }
 
-    public LiveData<List<ExerciseWithDetails>> getExercisesForDay(int workoutDayId) {
-        return repository.getExercisesForDay(workoutDayId);
+    public LiveData<List<ExerciseWithDetails>> getExercisesForPlan(int planId) {
+        return repository.getExercisesForPlan(planId);
     }
 
-    public LiveData<List<WorkoutSession>> getAllSessions() {
-        return repository.getAllSessions();
+    public LiveData<List<WorkoutHistory>> getAllSessions() {
+        return repository.getAllHistory();
     }
 
     public LiveData<List<BodyMeasurement>> getAllMeasurements() {
@@ -58,8 +58,8 @@ public class WorkoutViewModel extends AndroidViewModel {
 
     public void setBandLevel(String level) { selectedBandLevel.setValue(level); }
 
-    public void saveSession(WorkoutSession session) {
-        repository.insertSession(session);
+    public void saveSession(WorkoutHistory session) {
+        repository.insertHistory(session);
         loadStreak();
         loadWeeklyCalories();
     }
